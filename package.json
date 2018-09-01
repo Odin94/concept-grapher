@@ -8,22 +8,20 @@
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "start": "npm run build && electron ./dist/main.js"
   },
-  "repository": "https://github.com/electron/electron-quick-start-typescript",
+  "repository": "https://github.com/Odin94/concept-grapher.git",
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo",
+    "concept",
+    "map",
+    "concept map",
+    "mind map",
     "typescript"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "Odin94",
+  "license": "GPL",
   "devDependencies": {
     "electron": "^2.0.8",
     "tslint": "^5.10.0",
     "typescript": "^2.8.3"
   }
 }
-
-# electron-quick-start-typescript
