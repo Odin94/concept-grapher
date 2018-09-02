@@ -6,11 +6,13 @@ import { Application, Container, Text } from 'pixi.js';
 import MouseInput from './modules/mouse_input';
 import * as Viewport from 'pixi-viewport';
 
-const app: Application = new Application(800, 600, { backgroundColor: 0xeeeeee }, true);
+const canvasContainer = document.getElementById("pixi-canvas-container");
+
+const app: Application = new Application(canvasContainer.offsetWidth, canvasContainer.offsetHeight, { backgroundColor: 0xeeeeee }, true);
 
 app.view.style.position = 'absolute';
 app.view.style.display = 'block';
-document.body.appendChild(app.view);
+canvasContainer.appendChild(app.view);
 
 const viewport = addViewport();
 
@@ -32,7 +34,12 @@ input.setAttribute("style", `display: block; border: 1px solid red; position: ab
 input.oninput = (event: Event) => {
 	message.text = input.value;
 };
-document.body.appendChild(input);
+// document.body.appendChild(input);
+
+window.onresize = () => {
+	app.view.style.width = `${canvasContainer.offsetWidth}px`;
+	app.view.style.height = `${canvasContainer.offsetHeight}px`;
+};
 
 // Viewport handles rendering updates
 function addViewport(): Viewport {
