@@ -1,1 +1,24 @@
 @import "bootstrap/bootstrap";
+$controls-background: #282d36;
+$input-background: #15171e;
+$input-border: #3c495b;
+$input-border-hover: #67aee9;
+$input-border-shadow: 0 0 8px rgba(101, 174, 232, .6);
+
+#top-level-row {
+    height: 100vh;
+}
+
+#controls {
+    background: $controls-background;
+
+    textarea {
+        background: $input-background;
+        border-color: $input-border;
+
+        &:focus {
+            border-color: $input-border-hover;
+            box-shadow: $input-border-shadow;
+        }
+    }
+}

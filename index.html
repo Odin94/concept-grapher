@@ -8,12 +8,15 @@
 </head>
 
 <body>
-  <div class="row">
-    <div id="pixi-canvas-container" class="col-9" style="height: 100vh;">
-      <!-- Pixi.js creates a canvas here -->
+  <div id="top-level-row" class="row">
+    <div id="controls" class="col-3">
+      <div class="container-fluid">
+        <h4>Input</h4>
+        <textarea id="text-input" class="form-control" cols="30" rows="5"></textarea>
+      </div>
     </div>
-    <div class="col-3" style="background: lightslategray; height: 100vh;">
-      <p>Test123</p>
+    <div id="pixi-canvas-container" class="col-9">
+      <!-- Pixi.js creates a canvas here -->
     </div>
   </div>
 </body>

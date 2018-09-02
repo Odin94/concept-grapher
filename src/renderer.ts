@@ -28,9 +28,7 @@ viewport.addChild(message);
 
 const mouseInput = new MouseInput(viewport);
 
-const input = document.createElement("input");
-input.setAttribute("type", "text");
-input.setAttribute("style", `display: block; border: 1px solid red; position: absolute; top: ${app.view.height + 100}px`);
+const input: HTMLTextAreaElement = document.getElementById("text-input") as HTMLTextAreaElement;
 input.oninput = (event: Event) => {
 	message.text = input.value;
 };
