@@ -1,13 +1,15 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, screen, Size } from "electron";
 import * as path from "path";
 
 let mainWindow: Electron.BrowserWindow;
 
 function createWindow() {
+  const mainScreenSize: Size = screen.getPrimaryDisplay().size;
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: mainScreenSize.width * 0.9,
+    height: mainScreenSize.height * 0.9,
   });
 
   // and load the index.html of the app.
