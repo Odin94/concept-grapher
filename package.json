@@ -20,8 +20,11 @@
   "author": "Odin94",
   "license": "GPL",
   "devDependencies": {
+    "@types/pixi.js": "^4.8.0",
     "electron": "^2.0.8",
+    "pixi-viewport": "^3.6.0",
+    "pixi.js": "^4.8.1",
     "tslint": "^5.10.0",
-    "typescript": "^2.8.3"
+    "typescript": "^3.0.3"
   }
 }
