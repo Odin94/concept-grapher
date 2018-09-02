@@ -26,6 +26,13 @@ viewport.addChild(message);
 
 const mouseInput = new MouseInput(viewport);
 
+const input = document.createElement("input");
+input.setAttribute("type", "text");
+input.setAttribute("style", `display: block; border: 1px solid red; position: absolute; top: ${app.view.height + 100}px`);
+input.oninput = (event: Event) => {
+	message.text = input.value;
+};
+document.body.appendChild(input);
 
 // Viewport handles rendering updates
 function addViewport(): Viewport {

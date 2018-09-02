@@ -1,14 +1,11 @@
 export default class MouseInput {
-    mouseX = 0;
-    mouseY = 0;
-
     constructor(public viewport: Viewport) {
         this.addMouseListeners();
     };
 
     private addMouseListeners() {
         this.viewport.on("clicked", (data: Viewport.ClickEventData) => {
-
+            console.log(data);
         });
 
         this.viewport.on("pointerdown", (event: PIXI.interaction.InteractionEvent) => {
