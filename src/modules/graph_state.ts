@@ -1,10 +1,10 @@
-import { Text } from 'pixi.js';
+import { Text, PointLike } from 'pixi.js';
 import constants from '../constants';
 
 export class GraphState {
-    private temporary_node: GraphNode = null;
+    temporary_node: GraphNode | null = null;
 
-    constructor(public nodes: Array<GraphNode> = [], public connections: Array<NodeConnection> = []) { };
+    constructor(public viewport: Viewport, public nodes: Array<GraphNode> = [], public connections: Array<NodeConnection> = []) { };
 
     add(node: GraphNode) {
         this.nodes.push(node);
@@ -14,16 +14,23 @@ export class GraphState {
         this.nodes = this.nodes.filter(elem => elem.id !== nodeId);
     };
 
-    create_temporary_node(x: number, y: number) {
+    create_temporary_node(mousePoint: PointLike) {
         this.store_and_null_temporary_node();
 
         const new_id = this.get_max_id() + 1;
-        const new_text = new Text("", constants.DEFAULT_FONT);
+        const new_text = new Text("TEST_REMOVE_THIS", constants.DEFAULT_FONT);
+        new_text.position.set(mousePoint.x, mousePoint.y);
         this.temporary_node = new GraphNode(new_id, new_text);
+
+        this.viewport.addChild(this.temporary_node.text);
+    }
+
+    destroy_temporary_node() {
+        // TODO: remove temporary node's text from viewport
     }
 
     private store_and_null_temporary_node() {
-        this.add(this.temporary_node);
+        if (this.temporary_node) this.add(this.temporary_node);
         this.temporary_node = null;
     }
 

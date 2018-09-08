@@ -1,7 +1,7 @@
 import { app, BrowserWindow, screen, Size } from "electron";
 import * as path from "path";
 
-let mainWindow: Electron.BrowserWindow;
+let mainWindow: Electron.BrowserWindow | null;
 
 function createWindow() {
   const mainScreenSize: Size = screen.getPrimaryDisplay().size;
