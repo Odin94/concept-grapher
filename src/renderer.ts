@@ -6,7 +6,7 @@ import { Application, Container, Text } from 'pixi.js';
 import MouseInput from './modules/mouse_input';
 import Controls from './modules/controls';
 import * as Viewport from 'pixi-viewport';
-import { GraphState } from './modules/graph_state';
+import { GraphState, GraphNode } from './modules/graph_state';
 import constants from './constants'
 
 const canvasContainer = document.getElementById("pixi-canvas-container") as HTMLElement;
@@ -20,17 +20,15 @@ canvasContainer.appendChild(app.view);
 const viewport = addViewport();
 
 const stage: Container = new Container();
+const graphState = new GraphState(viewport);
+const mouseInput = new MouseInput(viewport, graphState);
 
 const message: Text = new Text(
 	'Hello Pixi!',
 	constants.DEFAULT_FONT
 );
-
 message.position.set(app.view.width / 2 - message.width / 2, app.view.height / 2 - message.height / 2);
-viewport.addChild(message);
-
-const graphState = new GraphState(viewport);
-const mouseInput = new MouseInput(viewport, graphState);
+graphState.add(new GraphNode(0, message));
 
 window.onresize = () => {
 	app.view.style.width = `${canvasContainer.offsetWidth}px`;
