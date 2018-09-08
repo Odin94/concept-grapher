@@ -3,6 +3,7 @@ $controls-background: #282d36;
 $input-background: #15171e;
 $input-border: #3c495b;
 $input-border-hover: #67aee9;
+$input-header: #e91e63;
 $input-border-shadow: 0 0 8px rgba(101, 174, 232, .6);
 
 #top-level-row {
@@ -11,6 +12,10 @@ $input-border-shadow: 0 0 8px rgba(101, 174, 232, .6);
 
 #controls {
     background: $controls-background;
+
+    h4 {
+        color: $input-header;
+    }
 
     textarea {
         background: $input-background;
