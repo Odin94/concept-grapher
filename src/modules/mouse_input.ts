@@ -1,5 +1,6 @@
 import { GraphState, GraphNode } from './graph_state';
 import { Point } from 'pixi.js';
+import controlsWindow from './controls';
 
 export default class MouseInput {
     constructor(public viewport: Viewport, public graphState: GraphState) {
@@ -11,9 +12,10 @@ export default class MouseInput {
             console.log(data);
             const selected_node = this.select_node(data.world as Point);
             if (selected_node) {
-
+                controlsWindow.set_selected_node(selected_node);
             } else {
                 this.graphState.create_temporary_node(data.world);
+                controlsWindow.set_selected_node(this.graphState.temporary_node as GraphNode);
             }
         });
 

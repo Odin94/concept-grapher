@@ -4,7 +4,7 @@
 
 import { Application, Container, Text } from 'pixi.js';
 import MouseInput from './modules/mouse_input';
-import ControlsWindow from './modules/controls_window';
+import Controls from './modules/controls';
 import * as Viewport from 'pixi-viewport';
 import { GraphState } from './modules/graph_state';
 import constants from './constants'
@@ -31,7 +31,6 @@ viewport.addChild(message);
 
 const graphState = new GraphState(viewport);
 const mouseInput = new MouseInput(viewport, graphState);
-const controlsWindow = new ControlsWindow();
 
 window.onresize = () => {
 	app.view.style.width = `${canvasContainer.offsetWidth}px`;
