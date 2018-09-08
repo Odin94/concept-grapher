@@ -8,10 +8,14 @@ export class GraphState {
 
     add(node: GraphNode) {
         this.nodes.push(node);
+        this.viewport.addChild(node.text);
     };
 
     remove(nodeId: number) {
         this.nodes = this.nodes.filter(elem => elem.id !== nodeId);
+
+        const removed_node = this.nodes.find(elem => elem.id !== nodeId);
+        if (removed_node) this.viewport.removeChild(removed_node.text);
     };
 
     create_temporary_node(mousePoint: PointLike) {
@@ -30,7 +34,10 @@ export class GraphState {
     }
 
     private store_and_null_temporary_node() {
-        if (this.temporary_node) this.add(this.temporary_node);
+        if (this.temporary_node) {
+            this.viewport.removeChild(this.temporary_node.text);
+            this.add(this.temporary_node);
+        }
         this.temporary_node = null;
     }
 
