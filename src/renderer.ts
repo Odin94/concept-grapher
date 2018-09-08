@@ -18,10 +18,10 @@ app.view.style.display = 'block';
 canvasContainer.appendChild(app.view);
 
 const viewport = addViewport();
-
-const stage: Container = new Container();
+const controls = new Controls();
 const graphState = new GraphState(viewport);
-const mouseInput = new MouseInput(viewport, graphState);
+const mouseInput = new MouseInput(viewport, graphState, controls);
+
 
 const message: Text = new Text(
 	'Hello Pixi!',
