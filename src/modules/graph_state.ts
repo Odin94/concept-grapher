@@ -1,7 +1,25 @@
-import { Text, PointLike } from 'pixi.js';
+import { Text, PointLike, TextStyleOptions } from 'pixi.js';
 import constants from '../constants';
 import StatePersister from './state_persister';
 
+export class JSONableGraphState {
+    constructor(public nodes: Array<JSONableGraphNode>, public connections: Array<JSONableNodeConnection>) { }
+
+    to_graph_state(viewport: Viewport): GraphState {
+        const loaded_nodes: Array<GraphNode> = [];
+        for (const node of this.nodes) {
+            loaded_nodes.push(node.to_graph_node());
+        }
+
+        const loaded_connections: Array<NodeConnection> = [];
+        for (const connection of this.connections) {
+            loaded_connections.push(connection.to_node_connection());
+        }
+
+        return new GraphState(viewport, loaded_nodes, loaded_connections);
+
+    }
+}
 export class GraphState {
     temporary_node: GraphNode | null = null;
 
@@ -44,21 +62,18 @@ export class GraphState {
         this.temporary_node = null;
     }
 
-    to_json(): string {
-        let json_graph = `{"nodes": [\n`;
+    to_jsonanble_graph_state(): JSONableGraphState {
+        const jsonable_nodes: Array<JSONableGraphNode> = [];
         for (const node of this.nodes) {
-            json_graph += `${node.to_json()},\n`;
+            jsonable_nodes.push(node.to_jsonable_graph_node());
         }
-        if (this.nodes.length > 0) json_graph = json_graph.substring(0, json_graph.length - 2);  // remove trailing comma in json array
-        json_graph += `\n],\n"connections": [\n`;
 
+        const jsonable_connections: Array<JSONableNodeConnection> = [];
         for (const connection of this.connections) {
-            json_graph += `${connection.to_json()},\n`;
+            jsonable_connections.push(connection.to_jsonable_node_connection());
         }
-        if (this.connections.length > 0) json_graph = json_graph.substring(0, json_graph.length - 2);
-        json_graph += "\n]}";
 
-        return json_graph;
+        return new JSONableGraphState(jsonable_nodes, jsonable_connections);
     }
 
     private get_max_id(): number {
@@ -67,37 +82,56 @@ export class GraphState {
     }
 }
 
+export class JSONableGraphNode {
+    constructor(public id: number, public text: string, public x: number, public y: number, public style: TextStyleOptions) { }
+
+    to_graph_node(): GraphNode {
+        const loaded_text = new Text(this.text, this.style);
+        loaded_text.position.set(this.x, this.y);
+
+        return new GraphNode(this.id, loaded_text);
+    };
+};
 export class GraphNode {
     constructor(public readonly id: number, public text: Text) { };
 
-    to_json(): string {
-        return JSON.stringify({
-            id: this.id,
-            text: this.text.text,
-            x: this.text.x,
-            y: this.text.y,
-            style: {
+    to_jsonable_graph_node(): JSONableGraphNode {
+        return new JSONableGraphNode(
+            this.id,
+            this.text.text,
+            this.text.x,
+            this.text.y,
+            {
                 fontFamily: this.text.style.fontFamily,
                 fontSize: this.text.style.fontSize,
                 fill: this.text.style.fill
             }
-        }, null, 2);
-    }
-}
+        );
+    };
+};
 
+export class JSONableNodeConnection {
+    constructor(public firstNodeId: number, public secondNodeId: number, public text: string, public style: TextStyleOptions) { }
+
+    to_node_connection(): NodeConnection {
+        const loaded_text = new Text(this.text, this.style);
+
+        return new NodeConnection(this.firstNodeId, this.secondNodeId, loaded_text);
+    };
+};
 export class NodeConnection {
-    constructor(public readonly firstNodeId: number, public readonly secondNodeId: string, public text: Text) { };
+    constructor(public readonly firstNodeId: number, public readonly secondNodeId: number, public text: Text) { };
 
-    to_json(): string {
-        return JSON.stringify({
-            firstNodeId: this.firstNodeId,
-            secondNodeId: this.secondNodeId,
-            text: this.text.text,
-            style: {
+    to_jsonable_node_connection(): JSONableNodeConnection {
+        return new JSONableNodeConnection(
+            this.firstNodeId,
+            this.secondNodeId,
+            this.text.text,
+            {
                 fontFamily: this.text.style.fontFamily,
                 fontSize: this.text.style.fontSize,
                 fill: this.text.style.fill
             }
-        }, null, 2);
-    }
-}
+        );
+    };
+};

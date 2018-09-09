@@ -5,6 +5,7 @@
 import { Application, Container, Text } from 'pixi.js';
 import MouseInput from './modules/mouse_input';
 import Controls from './modules/controls';
+import StatePersister from './modules/state_persister';
 import * as Viewport from 'pixi-viewport';
 import { GraphState, GraphNode } from './modules/graph_state';
 import constants from './constants'
@@ -18,9 +19,10 @@ app.view.style.display = 'block';
 canvasContainer.appendChild(app.view);
 
 const viewport = addViewport();
+const state_persister = new StatePersister();
 const controls = new Controls();
-const graphState = new GraphState(viewport);
-const mouseInput = new MouseInput(viewport, graphState, controls);
+const graph_state = state_persister.load_graph("filename.json", viewport) || new GraphState(viewport);
+const mouse_input = new MouseInput(viewport, graph_state, controls);
 
 
 const message: Text = new Text(
@@ -28,7 +30,7 @@ const message: Text = new Text(
 	constants.DEFAULT_FONT
 );
 message.position.set(app.view.width / 2 - message.width / 2, app.view.height / 2 - message.height / 2);
-graphState.add(new GraphNode(0, message));
+graph_state.add(new GraphNode(0, message));
 
 window.onresize = () => {
 	app.view.style.width = `${canvasContainer.offsetWidth}px`;
