@@ -8,16 +8,19 @@ export class JSONableGraphState {
     to_graph_state(viewport: Viewport): GraphState {
         const loaded_nodes: Array<GraphNode> = [];
         for (const node of this.nodes) {
-            loaded_nodes.push(node.to_graph_node());
+            const graph_node = node.to_graph_node();
+            loaded_nodes.push(graph_node);
+            viewport.addChild(graph_node.text);
         }
 
         const loaded_connections: Array<NodeConnection> = [];
         for (const connection of this.connections) {
-            loaded_connections.push(connection.to_node_connection());
+            const node_connection = connection.to_node_connection()
+            loaded_connections.push(node_connection);
+            viewport.addChild(node_connection.text);
         }
 
         return new GraphState(viewport, loaded_nodes, loaded_connections);
-
     }
 }
 export class GraphState {
