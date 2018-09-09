@@ -13,6 +13,22 @@ $input-border-shadow: 0 0 8px rgba(101, 174, 232, .6);
 #controls {
     background: $controls-background;
 
+    display: block;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 320px;
+    box-sizing: border-box;
+
+    #concept-header {
+        text-align: center;
+        color: white;
+
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+
     h4 {
         color: $input-header;
     }
@@ -30,4 +46,12 @@ $input-border-shadow: 0 0 8px rgba(101, 174, 232, .6);
 
 #pixi-canvas-container {
     padding: 0;
+    
+    display: block;
+    position: fixed;
+    left: 320px;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
