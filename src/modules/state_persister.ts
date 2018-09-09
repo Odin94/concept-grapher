@@ -21,28 +21,25 @@ export default class StatePersister {
     }
 
     load_graph(filename: string, viewport: Viewport): GraphState | null {
-        const json_graph = JSON.parse(readFileSync(join(constants.GRAPH_STORAGE_PATH, filename)).toString());
-        if (json_graph) {
-            try {
-                // TODO: find better way to transform plain json objects into class instances. Maybe https://github.com/typestack/class-transformer ?
-                const jsonable_graph_state = new JSONableGraphState(
-                    json_graph.nodes.map(
-                        (node: JSONableGraphNode) => new JSONableGraphNode(node.id, node.text, node.x, node.y, node.style)
-                    ),
-                    json_graph.connections.map(
-                        (node: JSONableNodeConnection) => new JSONableNodeConnection(node.firstNodeId, node.secondNodeId, node.text, node.style)
-                    ));
-                return jsonable_graph_state.to_graph_state(viewport);
-            } catch (err) {
-                // TODO: display error?
-                console.log(err);
+        try {
+            const json_graph = JSON.parse(readFileSync(join(constants.GRAPH_STORAGE_PATH, filename)).toString());
 
-                return null;
-            }
+            // TODO: find better way to transform plain json objects into class instances. Maybe https://github.com/typestack/class-transformer ?
+            const jsonable_graph_state = new JSONableGraphState(
+                json_graph.nodes.map(
+                    (node: JSONableGraphNode) => new JSONableGraphNode(node.id, node.text, node.x, node.y, node.style)
+                ),
+                json_graph.connections.map(
+                    (node: JSONableNodeConnection) => new JSONableNodeConnection(node.firstNodeId, node.secondNodeId, node.text, node.style)
+                ));
+            return jsonable_graph_state.to_graph_state(viewport);
         }
+        catch (err) {
+            // TODO: display error?
+            console.log(err);
 
-        // TODO: display error?
-        return null;
+            return null;
+        }
     }
 }
 

@@ -18,4 +18,8 @@ export default class Controls {
 
         this.input.focus();
     };
+
+    save_graph_as() {
+        
+    }
 };

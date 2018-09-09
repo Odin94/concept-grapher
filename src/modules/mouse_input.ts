@@ -9,8 +9,7 @@ export default class MouseInput {
 
     private addMouseListeners() {
         this.viewport.on("clicked", (data: Viewport.ClickEventData) => {
-            console.log(data);
-            const selected_node = this.select_node(data.world as Point);
+            const selected_node = this.select_node(data.screen as Point);
             if (selected_node) {
                 this.graph_state.store_and_null_temporary_node();
                 this.controls.set_selected_node(selected_node);
