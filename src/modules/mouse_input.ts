@@ -1,6 +1,7 @@
-import { GraphState, GraphNode } from './graph_state';
+import { GraphState } from './graph/graph_state';
 import { Point } from 'pixi.js';
 import Controls from './controls';
+import { GraphNode } from './graph/graph_node';
 
 export default class MouseInput {
     constructor(public viewport: Viewport, public graph_state: GraphState, public controls: Controls) {

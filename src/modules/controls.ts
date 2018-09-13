@@ -1,4 +1,4 @@
-import { GraphNode } from './graph_state';
+import { GraphNode } from './graph/graph_node';
 
 export default class Controls {
     selected_node: GraphNode;

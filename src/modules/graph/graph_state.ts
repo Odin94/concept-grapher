@@ -1,6 +1,8 @@
 import { Text, PointLike, TextStyleOptions } from 'pixi.js';
-import constants from '../constants';
-import StatePersister from './state_persister';
+import constants from '../../constants';
+import StatePersister from '../state_persister';
+import { GraphNode, JSONableGraphNode } from './graph_node';
+import { NodeConnection, JSONableNodeConnection } from './node_connection';
 
 export class JSONableGraphState {
     constructor(public nodes: Array<JSONableGraphNode>, public connections: Array<JSONableNodeConnection>) { }
@@ -22,7 +24,8 @@ export class JSONableGraphState {
 
         return new GraphState(viewport, loaded_nodes, loaded_connections);
     }
-}
+};
+
 export class GraphState {
     temporary_node: GraphNode | null = null;
 
@@ -68,7 +71,7 @@ export class GraphState {
     to_jsonanble_graph_state(): JSONableGraphState {
         const jsonable_nodes: Array<JSONableGraphNode> = [];
         for (const node of this.nodes) {
-            jsonable_nodes.push(node.to_jsonable_graph_node());
+            jsonable_nodes.push(node.to_jsonable_graph_node(this.viewport));
         }
 
         const jsonable_connections: Array<JSONableNodeConnection> = [];
@@ -83,58 +86,4 @@ export class GraphState {
         const ids: Array<number> = this.nodes.map((node) => node.id);
         return ids.length > 0 ? Math.max(...ids) : 0;
     }
-}
-
-export class JSONableGraphNode {
-    constructor(public id: number, public text: string, public x: number, public y: number, public style: TextStyleOptions) { }
-
-    to_graph_node(): GraphNode {
-        const loaded_text = new Text(this.text, this.style);
-        loaded_text.position.set(this.x, this.y);
-
-        return new GraphNode(this.id, loaded_text);
-    };
-};
-export class GraphNode {
-    constructor(public readonly id: number, public text: Text) { };
-
-    to_jsonable_graph_node(): JSONableGraphNode {
-        return new JSONableGraphNode(
-            this.id,
-            this.text.text,
-            this.text.x,
-            this.text.y,
-            {
-                fontFamily: this.text.style.fontFamily,
-                fontSize: this.text.style.fontSize,
-                fill: this.text.style.fill
-            }
-        );
-    };
-};
-
-export class JSONableNodeConnection {
-    constructor(public firstNodeId: number, public secondNodeId: number, public text: string, public style: TextStyleOptions) { }
-
-    to_node_connection(): NodeConnection {
-        const loaded_text = new Text(this.text, this.style);
-
-        return new NodeConnection(this.firstNodeId, this.secondNodeId, loaded_text);
-    };
-};
-export class NodeConnection {
-    constructor(public readonly firstNodeId: number, public readonly secondNodeId: number, public text: Text) { };
-
-    to_jsonable_node_connection(): JSONableNodeConnection {
-        return new JSONableNodeConnection(
-            this.firstNodeId,
-            this.secondNodeId,
-            this.text.text,
-            {
-                fontFamily: this.text.style.fontFamily,
-                fontSize: this.text.style.fontSize,
-                fill: this.text.style.fill
-            }
-        );
-    };
 };

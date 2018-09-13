@@ -1,7 +1,9 @@
-import { GraphState, JSONableGraphState, JSONableGraphNode, JSONableNodeConnection } from "./graph_state";
+import { GraphState, JSONableGraphState } from "./graph/graph_state";
 import { writeFile, readFileSync } from 'fs';
 import { join } from 'path';
 import constants from "../constants";
+import { JSONableGraphNode } from "./graph/graph_node";
+import { JSONableNodeConnection } from "./graph/node_connection";
 
 export default class StatePersister {
     constructor() { };

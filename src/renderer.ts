@@ -7,8 +7,9 @@ import MouseInput from './modules/mouse_input';
 import Controls from './modules/controls';
 import StatePersister from './modules/state_persister';
 import * as Viewport from 'pixi-viewport';
-import { GraphState, GraphNode } from './modules/graph_state';
+import { GraphState } from './modules/graph/graph_state';
 import constants from './constants'
+import { GraphNode } from './modules/graph/graph_node';
 
 const canvasContainer = document.getElementById("pixi-canvas-container") as HTMLElement;
 
@@ -21,7 +22,7 @@ canvasContainer.appendChild(app.view);
 const viewport = addViewport();
 const state_persister = new StatePersister();
 const controls = new Controls();
-const graph_state = new GraphState(viewport); // state_persister.load_graph("filename.json", viewport) || 
+const graph_state = state_persister.load_graph("filename.json", viewport) || new GraphState(viewport);
 const mouse_input = new MouseInput(viewport, graph_state, controls);
 
 
