@@ -1,4 +1,4 @@
-import { Text, PointLike, TextStyleOptions } from 'pixi.js';
+import { Text, PointLike } from 'pixi.js';
 import constants from '../../constants';
 import StatePersister from '../state_persister';
 import { GraphNode, JSONableGraphNode } from './graph_node';
@@ -10,7 +10,7 @@ export class JSONableGraphState {
     to_graph_state(viewport: Viewport): GraphState {
         const loaded_nodes: Array<GraphNode> = [];
         for (const node of this.nodes) {
-            const graph_node = node.to_graph_node();
+            const graph_node = node.to_graph_node(viewport);
             loaded_nodes.push(graph_node);
             viewport.addChild(graph_node.text);
         }
@@ -71,7 +71,7 @@ export class GraphState {
     to_jsonanble_graph_state(): JSONableGraphState {
         const jsonable_nodes: Array<JSONableGraphNode> = [];
         for (const node of this.nodes) {
-            jsonable_nodes.push(node.to_jsonable_graph_node(this.viewport));
+            jsonable_nodes.push(node.to_jsonable_graph_node());
         }
 
         const jsonable_connections: Array<JSONableNodeConnection> = [];
