@@ -3,6 +3,7 @@ import constants from '../../constants';
 import StatePersister from '../state_persister';
 import { GraphNode, JSONableGraphNode } from './graph_node';
 import { NodeConnection, JSONableNodeConnection } from './node_connection';
+import { ConceptGrapher } from '../concept_grapher';
 
 export class JSONableGraphState {
     constructor(public nodes: Array<JSONableGraphNode>, public connections: Array<JSONableNodeConnection>) { }

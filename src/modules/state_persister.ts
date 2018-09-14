@@ -8,10 +8,10 @@ import { JSONableNodeConnection } from "./graph/node_connection";
 export default class StatePersister {
     constructor() { };
 
-    store_graph(graph: GraphState, filename: string) {
+    store_graph(graph: GraphState, save_path: string) {
         const json_graph = JSON.stringify(graph.to_jsonanble_graph_state(), null, 2);
 
-        writeFile(join(constants.GRAPH_STORAGE_PATH, filename), json_graph, err => {
+        writeFile(join(constants.GRAPH_STORAGE_PATH, save_path), json_graph, err => {
             if (err) {
                 console.log(err);
                 // TODO: display that there was an error somewhere
@@ -22,9 +22,9 @@ export default class StatePersister {
         });
     }
 
-    load_graph(filename: string, viewport: Viewport): GraphState | null {
+    load_graph(file_path: string, viewport: Viewport): GraphState | null {
         try {
-            const json_graph = JSON.parse(readFileSync(join(constants.GRAPH_STORAGE_PATH, filename)).toString());
+            const json_graph = JSON.parse(readFileSync(join(constants.GRAPH_STORAGE_PATH, file_path)).toString());
 
             // TODO: find better way to transform plain json objects into class instances. Maybe https://github.com/typestack/class-transformer ?
             const jsonable_graph_state = new JSONableGraphState(

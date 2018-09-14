@@ -3,13 +3,8 @@
 // All of the Node.js APIs are available in this process.
 
 import { Application, Container, Text } from 'pixi.js';
-import MouseInput from './modules/mouse_input';
-import Controls from './modules/controls';
-import StatePersister from './modules/state_persister';
 import * as Viewport from 'pixi-viewport';
-import { GraphState } from './modules/graph/graph_state';
-import constants from './constants'
-import { GraphNode } from './modules/graph/graph_node';
+import { ConceptGrapher } from './modules/concept_grapher';
 
 const canvasContainer = document.getElementById("pixi-canvas-container") as HTMLElement;
 
@@ -20,18 +15,7 @@ app.view.style.display = 'block';
 canvasContainer.appendChild(app.view);
 
 const viewport = addViewport();
-const state_persister = new StatePersister();
-const controls = new Controls();
-const graph_state = state_persister.load_graph("filename.json", viewport) || new GraphState(viewport);
-const mouse_input = new MouseInput(viewport, graph_state, controls);
-
-
-const message: Text = new Text(
-	'Hello Pixi!',
-	constants.DEFAULT_FONT
-);
-message.position.set(app.view.width / 2 - message.width / 2, app.view.height / 2 - message.height / 2);
-graph_state.add(new GraphNode(0, message));
+const concept_grapher = new ConceptGrapher(viewport);
 
 window.onresize = () => {
 	app.view.style.width = `${canvasContainer.offsetWidth}px`;
