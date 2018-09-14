@@ -1,0 +1,258 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "text": "Hello Pixi!",
+      "x": 784.5,
+      "y": 439,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 1,
+      "text": "TEST_REMOVE_THIS\nLOL",
+      "x": 561.8484179543783,
+      "y": 258,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 2,
+      "text": "TEST_REMOVE_THIS",
+      "x": 463.5879323031641,
+      "y": 411,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 3,
+      "text": "TEST_REMOVE_THIS",
+      "x": 691.6026490066225,
+      "y": 588,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 4,
+      "text": "TEST_REMOVE_THIS",
+      "x": 1101.0213392200149,
+      "y": 411,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 5,
+      "text": "TEST_REMOVE_THIS",
+      "x": 1233.2950699043415,
+      "y": 823,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello Pixi!",
+      "x": 784.5,
+      "y": 439,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 6,
+      "text": "TEST_REMOVE_THIS",
+      "x": 132.2737306843268,
+      "y": 1040,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 7,
+      "text": "TEST_REMOVE_THIS",
+      "x": 517.7571743929361,
+      "y": 1061,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello Pixi!",
+      "x": 784.5,
+      "y": 439,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello Pixi!",
+      "x": 784.5,
+      "y": 439,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello Pixi!",
+      "x": 784.5,
+      "y": 439,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello Pixi!",
+      "x": 784.5,
+      "y": 439,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello Pixi!",
+      "x": 784.5,
+      "y": 439,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello Pixi!",
+      "x": 784.5,
+      "y": 439,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello Pixi!",
+      "x": 784.5,
+      "y": 439,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 8,
+      "text": "TEST_REMOVE_THIS",
+      "x": 215.63358778625954,
+      "y": 587,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 9,
+      "text": "TEST_REMOVE_THIS nice",
+      "x": 393.36793893129766,
+      "y": 741,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello Pixi!",
+      "x": 643.5106582641602,
+      "y": 401.5,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello ConceptGrapher!",
+      "x": 551.0106582641602,
+      "y": 401.5,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello ConceptGrapher!",
+      "x": 551.0106582641602,
+      "y": 401.5,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello ConceptGrapher!",
+      "x": 551.0106582641602,
+      "y": 401.5,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    },
+    {
+      "id": 0,
+      "text": "Hello ConceptGrapher!",
+      "x": 551.0106582641602,
+      "y": 401.5,
+      "style": {
+        "fontFamily": "Arial",
+        "fontSize": 32,
+        "fill": "black"
+      }
+    }
+  ],
+  "connections": []
+}

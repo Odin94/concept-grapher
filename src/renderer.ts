@@ -2,7 +2,7 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-import { Application, Container, Text } from 'pixi.js';
+import { Application } from 'pixi.js';
 import * as Viewport from 'pixi-viewport';
 import { ConceptGrapher } from './modules/concept_grapher';
 
