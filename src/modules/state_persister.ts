@@ -18,7 +18,7 @@ export default class StatePersister {
                 // TODO: display that store was successful somewhere
             }
         });
-    }
+    };
 
     load_graph(file_path: string, viewport: Viewport): GraphState | null {
         try {
@@ -30,7 +30,7 @@ export default class StatePersister {
                     (node: JSONableGraphNode) => new JSONableGraphNode(node.id, node.text, node.x, node.y, node.style)
                 ),
                 json_graph.connections.map(
-                    (node: JSONableNodeConnection) => new JSONableNodeConnection(node.firstNodeId, node.secondNodeId, node.text, node.style)
+                    (connection: JSONableNodeConnection) => new JSONableNodeConnection(connection.first_node_id, connection.second_node_id, connection.text, connection.text_style, connection.line_style)
                 ));
             return jsonable_graph_state.to_graph_state(viewport);
         }
@@ -40,6 +40,6 @@ export default class StatePersister {
 
             return null;
         }
-    }
-}
+    };
+};
 

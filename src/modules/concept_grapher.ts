@@ -26,7 +26,7 @@ export class ConceptGrapher {
             'Hello ConceptGrapher!',
             constants.DEFAULT_FONT
         );
-        this.active_graph_widget.graph_state.add(new GraphNode(0, message));
+        this.active_graph_widget.graph_state.add_node(new GraphNode(0, message));
         message.position.set(0 - message.width / 2, 0 - message.height / 2);
     };
 
@@ -51,5 +51,5 @@ export class ConceptGrapher {
             this.active_graph_widget.clear_active_graph();
             this.active_graph_widget.set_new_graph(new_graph);
         }
-    }
-}
+    };
+};

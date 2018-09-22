@@ -3,6 +3,14 @@ import { Text, TextStyleOptions, Point } from 'pixi.js';
 export class GraphNode {
     constructor(public readonly id: number, public text: Text) { };
 
+    add_to_viewport(viewport: Viewport) {
+        viewport.addChild(this.text);
+    };
+
+    remove_from_viewport(viewport: Viewport) {
+        viewport.removeChild(this.text);
+    };
+
     to_jsonable_graph_node(): JSONableGraphNode {
         // text.x is in world-coords
         return new JSONableGraphNode(
@@ -11,13 +19,13 @@ export class GraphNode {
             this.text.x,
             this.text.y,
             {
+                fill: this.text.style.fill,
                 fontFamily: this.text.style.fontFamily,
                 fontSize: this.text.style.fontSize,
-                fill: this.text.style.fill
-            }
+            },
         );
-    };
-};
+    }
+}
 
 export class JSONableGraphNode {
     constructor(public id: number, public text: string, public x: number, public y: number, public style: TextStyleOptions) { }

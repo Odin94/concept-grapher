@@ -39,4 +39,4 @@ function addViewport(): Viewport {
 		.wheel();
 
 	return viewport;
-}
+};

@@ -8,26 +8,43 @@ export class GraphState {
 
     constructor(public viewport: Viewport, public nodes: Array<GraphNode> = [], public connections: Array<NodeConnection> = []) { };
 
-    add(node: GraphNode) {
+    add_node(node: GraphNode) {
         this.nodes.push(node);
-        this.viewport.addChild(node.text);
+        node.add_to_viewport(this.viewport);
     };
 
-    remove(nodeId: number) {
-        this.nodes = this.nodes.filter(elem => elem.id !== nodeId);
+    add_connection(connection: NodeConnection) {
+        this.connections.push(connection);
 
+        connection.add_to_viewport(this.viewport);
+    }
+
+    remove_node(nodeId: number) {
         const removed_node = this.nodes.find(elem => elem.id !== nodeId);
-        if (removed_node) this.viewport.removeChild(removed_node.text);
+
+        if (removed_node) {
+            this.nodes = this.nodes.filter(elem => elem.id !== nodeId);
+            removed_node.remove_from_viewport(this.viewport);
+        }
     };
+
+    remove_connection(connection: NodeConnection) {
+        const removed_connection = this.connections.find(elem => elem.first_node_id !== connection.first_node_id && elem.second_node_id !== connection.second_node_id);
+
+        if (removed_connection) {
+            this.connections = this.connections.filter(elem => elem.first_node_id !== connection.first_node_id && elem.second_node_id !== connection.second_node_id);
+            removed_connection.remove_from_viewport(this.viewport);
+        }
+    }
 
     clear() {
         for (const node of this.nodes) {
-            this.viewport.removeChild(node.text);
+            node.remove_from_viewport(this.viewport);
         }
         this.nodes = [];
 
         for (const connection of this.connections) {
-            this.viewport.removeChild(connection.text);
+            connection.remove_from_viewport(this.viewport);
         }
         this.connections = [];
     }
@@ -40,13 +57,13 @@ export class GraphState {
         new_text.position.set(mouse_point.x, mouse_point.y);
         this.temporary_node = new GraphNode(new_id, new_text);
 
-        this.viewport.addChild(this.temporary_node.text);
+        this.temporary_node.add_to_viewport(this.viewport);
     };
 
     destroy_temporary_node() {
         if (this.temporary_node === null) return;
 
-        this.viewport.removeChild(this.temporary_node.text);
+        this.temporary_node.remove_from_viewport(this.viewport);
         this.temporary_node = null;
     };
 
@@ -54,7 +71,7 @@ export class GraphState {
         if (this.temporary_node === null) return;
 
         this.viewport.removeChild(this.temporary_node.text);
-        this.add(this.temporary_node);
+        this.add_node(this.temporary_node);
         this.temporary_node = null;
     };
 
@@ -86,16 +103,16 @@ export class JSONableGraphState {
         for (const node of this.nodes) {
             const graph_node = node.to_graph_node();
             loaded_nodes.push(graph_node);
-            viewport.addChild(graph_node.text);
+            graph_node.add_to_viewport(viewport);
         }
 
         const loaded_connections: Array<NodeConnection> = [];
         for (const connection of this.connections) {
-            const node_connection = connection.to_node_connection()
+            const node_connection = connection.to_node_connection(loaded_nodes)
             loaded_connections.push(node_connection);
-            viewport.addChild(node_connection.text);
+            node_connection.add_to_viewport(viewport);
         }
 
         return new GraphState(viewport, loaded_nodes, loaded_connections);
-    }
+    };
 };
