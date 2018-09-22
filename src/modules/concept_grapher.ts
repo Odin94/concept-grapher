@@ -39,7 +39,7 @@ export class ConceptGrapher {
     };
 
     save_active_graph(save_path: string = join(constants.DEFAULT_GRAPH_STORAGE_PATH, constants.DEFAULT_STORED_GRAPH_NAME)) {
-        this.active_graph_widget.graph_state.store_and_null_temporary_node();
+        this.active_graph_widget.graph_state.write_to_graph_and_null_temporary_node();
         this.state_persister.store_graph(this.active_graph_widget.graph_state, save_path);
     };
 
