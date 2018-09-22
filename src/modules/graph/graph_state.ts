@@ -33,7 +33,7 @@ export class GraphState {
     }
 
     create_temporary_node(mouse_point: PointLike) {
-        this.store_and_null_temporary_node();
+        this.write_to_graph_and_null_temporary_node();
 
         const new_id = this.get_max_id() + 1;
         const new_text = new Text("TEST_REMOVE_THIS", constants.DEFAULT_FONT);
@@ -50,8 +50,7 @@ export class GraphState {
         this.temporary_node = null;
     };
 
-    // TODO: find a better name - store implies persistance, but this just "stores" to the in-memory graph
-    store_and_null_temporary_node() {
+    write_to_graph_and_null_temporary_node() {
         if (this.temporary_node === null) return;
 
         this.viewport.removeChild(this.temporary_node.text);
