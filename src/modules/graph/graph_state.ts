@@ -11,10 +11,6 @@ export class GraphState {
     add(node: GraphNode) {
         this.nodes.push(node);
         this.viewport.addChild(node.text);
-
-        setInterval(() => {
-            if (this.nodes.length > 0) console.log(`x: ${this.nodes[0].text.x}, y: ${this.nodes[0].text.y}`);
-        }, 1000);
     };
 
     remove(nodeId: number) {
