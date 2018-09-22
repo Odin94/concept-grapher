@@ -7,6 +7,9 @@ export class GraphWidget {
     public selected_node: GraphNode | null;
     private mouse_input: MouseInput;
 
+    // ? Currently (active) graph_state is owned by concept_grapher and GraphWidget "borrows" it for displaying
+    // ? But the behavior on that isn't consistent (e.g. set_new_graph does more than just handle the displaying)
+    // TODO: Rethink ownership and make behavior consistent
     constructor(private concept_grapher: ConceptGrapher, public graph_state: GraphState) {
         this.mouse_input = new MouseInput(concept_grapher.viewport, this);
     }
