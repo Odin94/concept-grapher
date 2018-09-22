@@ -20,6 +20,18 @@ export class GraphState {
         if (removed_node) this.viewport.removeChild(removed_node.text);
     };
 
+    clear() {
+        for (const node of this.nodes) {
+            this.viewport.removeChild(node.text);
+        }
+        this.nodes = [];
+
+        for (const connection of this.connections) {
+            this.viewport.removeChild(connection.text);
+        }
+        this.connections = [];
+    }
+
     create_temporary_node(mouse_point: PointLike) {
         this.store_and_null_temporary_node();
 

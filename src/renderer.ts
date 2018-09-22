@@ -14,13 +14,13 @@ app.view.style.position = 'absolute';
 app.view.style.display = 'block';
 canvasContainer.appendChild(app.view);
 
-const viewport = addViewport();
-const concept_grapher = new ConceptGrapher(viewport);
-
 window.onresize = () => {
 	app.view.style.width = `${canvasContainer.offsetWidth}px`;
 	app.view.style.height = `${canvasContainer.offsetHeight}px`;
 };
+
+const viewport = addViewport();
+const concept_grapher = new ConceptGrapher(viewport);
 
 // Viewport handles rendering updates
 function addViewport(): Viewport {

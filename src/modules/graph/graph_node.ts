@@ -1,16 +1,5 @@
 import { Text, TextStyleOptions, Point } from 'pixi.js';
 
-export class JSONableGraphNode {
-    constructor(public id: number, public text: string, public x: number, public y: number, public style: TextStyleOptions) { }
-
-    to_graph_node(viewport: Viewport): GraphNode {
-        const loaded_text = new Text(this.text, this.style);
-        const screen_pos = viewport.toScreen(this.x, this.y);
-        loaded_text.position.set(screen_pos.x, screen_pos.y);
-
-        return new GraphNode(this.id, loaded_text);
-    };
-};
 export class GraphNode {
     constructor(public readonly id: number, public text: Text) { };
 
@@ -26,5 +15,17 @@ export class GraphNode {
                 fill: this.text.style.fill
             }
         );
+    };
+};
+
+export class JSONableGraphNode {
+    constructor(public id: number, public text: string, public x: number, public y: number, public style: TextStyleOptions) { }
+
+    to_graph_node(viewport: Viewport): GraphNode {
+        const loaded_text = new Text(this.text, this.style);
+        const screen_pos = viewport.toScreen(this.x, this.y);
+        loaded_text.position.set(screen_pos.x, screen_pos.y);
+
+        return new GraphNode(this.id, loaded_text);
     };
 };

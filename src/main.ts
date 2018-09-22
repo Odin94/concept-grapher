@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen, Size } from "electron";
+import { app, BrowserWindow, screen, Size, session } from "electron";
 import * as path from "path";
 
 let mainWindow: Electron.BrowserWindow | null;
@@ -30,7 +30,9 @@ function createWindow() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on("ready", createWindow);
+app.on("ready", () => {
+  createWindow();
+});
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {

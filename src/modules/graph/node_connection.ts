@@ -1,14 +1,5 @@
 import { Text, TextStyleOptions } from 'pixi.js';
 
-export class JSONableNodeConnection {
-    constructor(public firstNodeId: number, public secondNodeId: number, public text: string, public style: TextStyleOptions) { }
-
-    to_node_connection(): NodeConnection {
-        const loaded_text = new Text(this.text, this.style);
-
-        return new NodeConnection(this.firstNodeId, this.secondNodeId, loaded_text);
-    };
-};
 export class NodeConnection {
     constructor(public readonly firstNodeId: number, public readonly secondNodeId: number, public text: Text) { };
 
@@ -23,5 +14,15 @@ export class NodeConnection {
                 fill: this.text.style.fill
             }
         );
+    };
+};
+
+export class JSONableNodeConnection {
+    constructor(public firstNodeId: number, public secondNodeId: number, public text: string, public style: TextStyleOptions) { }
+
+    to_node_connection(): NodeConnection {
+        const loaded_text = new Text(this.text, this.style);
+
+        return new NodeConnection(this.firstNodeId, this.secondNodeId, loaded_text);
     };
 };

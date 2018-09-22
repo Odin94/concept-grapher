@@ -1,4 +1,3 @@
-import { GraphNode } from '../graph/graph_node';
 import { remote } from 'electron';
 import constants from '../../constants';
 import { ConceptGrapher } from '../concept_grapher';
@@ -18,7 +17,7 @@ export default class ControlsWidget {
 
         this.save_as_button = document.getElementById("save-as-button") as HTMLButtonElement;
         this.save_as_button.onclick = (event: Event) => {
-            const save_path = remote.dialog.showSaveDialog({ defaultPath: constants.GRAPH_STORAGE_PATH, filters: [{ name: 'JSON', extensions: ['json'] }] });
+            const save_path = remote.dialog.showSaveDialog({ defaultPath: constants.DEFAULT_GRAPH_STORAGE_PATH, filters: [{ name: 'JSON', extensions: ['json'] }] });
             if (save_path) {
                 this.save_graph_as(save_path);
             } else {
@@ -28,7 +27,7 @@ export default class ControlsWidget {
 
         this.load_button = document.getElementById("load-button") as HTMLButtonElement;
         this.load_button.onclick = (event: Event) => {
-            const load_path = remote.dialog.showOpenDialog({ defaultPath: constants.GRAPH_STORAGE_PATH, filters: [{ name: 'JSON', extensions: ['json'] }], properties: ["openFile"] })[0];
+            const load_path = remote.dialog.showOpenDialog({ defaultPath: constants.DEFAULT_GRAPH_STORAGE_PATH, filters: [{ name: 'JSON', extensions: ['json'] }], properties: ["openFile"] })[0];
             if (load_path) {
                 this.load_graph(load_path);
             } else {

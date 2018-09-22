@@ -20,4 +20,14 @@ export class GraphWidget {
     write_to_selected_node(new_text: string) {
         if (this.selected_node) this.selected_node.text.text = new_text;
     }
+
+    set_new_graph(new_graph: GraphState) {
+        this.clear_active_graph();
+        this.graph_state = new_graph;
+        this.concept_grapher.viewport.moveCenter(0, 0);
+    }
+
+    clear_active_graph() {
+        this.graph_state.clear();
+    }
 }
