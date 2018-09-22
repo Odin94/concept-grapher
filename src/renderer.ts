@@ -20,6 +20,7 @@ window.onresize = () => {
 };
 
 const viewport = addViewport();
+viewport.moveCenter(0, 0);
 const concept_grapher = new ConceptGrapher(viewport);
 
 // Viewport handles rendering updates

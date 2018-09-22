@@ -4,6 +4,7 @@ export class GraphNode {
     constructor(public readonly id: number, public text: Text) { };
 
     to_jsonable_graph_node(): JSONableGraphNode {
+        // text.x is in world-coords
         return new JSONableGraphNode(
             this.id,
             this.text.text,
@@ -21,10 +22,9 @@ export class GraphNode {
 export class JSONableGraphNode {
     constructor(public id: number, public text: string, public x: number, public y: number, public style: TextStyleOptions) { }
 
-    to_graph_node(viewport: Viewport): GraphNode {
+    to_graph_node(): GraphNode {
         const loaded_text = new Text(this.text, this.style);
-        const screen_pos = viewport.toScreen(this.x, this.y);
-        loaded_text.position.set(screen_pos.x, screen_pos.y);
+        loaded_text.position.set(this.x, this.y);
 
         return new GraphNode(this.id, loaded_text);
     };

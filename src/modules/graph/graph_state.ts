@@ -11,6 +11,10 @@ export class GraphState {
     add(node: GraphNode) {
         this.nodes.push(node);
         this.viewport.addChild(node.text);
+
+        setInterval(() => {
+            if (this.nodes.length > 0) console.log(`x: ${this.nodes[0].text.x}, y: ${this.nodes[0].text.y}`);
+        }, 1000);
     };
 
     remove(nodeId: number) {
@@ -84,7 +88,7 @@ export class JSONableGraphState {
     to_graph_state(viewport: Viewport): GraphState {
         const loaded_nodes: Array<GraphNode> = [];
         for (const node of this.nodes) {
-            const graph_node = node.to_graph_node(viewport);
+            const graph_node = node.to_graph_node();
             loaded_nodes.push(graph_node);
             viewport.addChild(graph_node.text);
         }

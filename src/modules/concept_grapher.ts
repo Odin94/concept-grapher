@@ -27,7 +27,7 @@ export class ConceptGrapher {
             constants.DEFAULT_FONT
         );
         this.active_graph_widget.graph_state.add(new GraphNode(0, message));
-        message.position.set(viewport.screenWidth / 2 - message.width / 2, viewport.screenHeight / 2 - message.height / 2);
+        message.position.set(0 - message.width / 2, 0 - message.height / 2);
     };
 
     on_select_new_node(node: GraphNode) {
