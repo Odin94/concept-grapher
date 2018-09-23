@@ -3,8 +3,8 @@
 // All of the Node.js APIs are available in this process.
 
 import { Application } from 'pixi.js';
-import * as Viewport from 'pixi-viewport';
 import { ConceptGrapher } from './modules/concept_grapher';
+import { zViewport } from './classes_with_z_order';
 
 const canvasContainer = document.getElementById("pixi-canvas-container") as HTMLElement;
 
@@ -24,8 +24,8 @@ viewport.moveCenter(0, 0);
 const concept_grapher = new ConceptGrapher(viewport);
 
 // Viewport handles rendering updates
-function addViewport(): Viewport {
-	const viewport = new Viewport({
+function addViewport(): zViewport {
+	const viewport = new zViewport({
 		screenWidth: window.innerWidth,
 		screenHeight: window.innerHeight,
 		worldWidth: 1000,

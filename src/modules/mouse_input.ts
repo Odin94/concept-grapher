@@ -1,8 +1,9 @@
-import { Point, Text } from 'pixi.js';
+import { Point } from 'pixi.js';
 import { GraphNode } from './graph/graph_node';
 import { GraphWidget } from './widgets/graph_widget';
 import constants from '../constants';
 import { NodeConnection } from './graph/node_connection';
+import { zText } from '../classes_with_z_order';
 
 export default class MouseInput {
     private temp_connection: { start_node: GraphNode, line: PIXI.Graphics } | null = null;
@@ -75,7 +76,7 @@ export default class MouseInput {
                 .moveTo(this.temp_connection.start_node.text.x, this.temp_connection.start_node.text.y)
                 .lineTo(target_node.text.x, target_node.text.y);
 
-            const text = new Text('', constants.DEFAULT_FONT);
+            const text = new zText('', constants.DEFAULT_FONT, constants.NODE_Z_ORDER);
 
             const new_connection = new NodeConnection(this.temp_connection.start_node.id, target_node.id, line, text);
             this.graph_widget.graph_state.add_connection(new_connection);

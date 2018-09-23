@@ -1,8 +1,10 @@
-import { Text, TextStyleOptions } from 'pixi.js';
+import { TextStyleOptions } from 'pixi.js';
 import { GraphNode } from './graph_node';
+import { zText, zGraphics } from '../../classes_with_z_order';
+import constants from '../../constants';
 
 export class NodeConnection {
-    constructor(public readonly first_node_id: number, public readonly second_node_id: number, public line: PIXI.Graphics, public text: Text) { };
+    constructor(public readonly first_node_id: number, public readonly second_node_id: number, public line: zGraphics, public text: zText) { };
 
     add_to_viewport(viewport: Viewport) {
         viewport.addChild(this.text);
@@ -43,11 +45,11 @@ export class JSONableNodeConnection {
         if (!node_one || !node_two) {
             // TODO: display error somewhere somehow? Maybe look for one of these "null-connections" at a later step and report then?
             console.log(`ERROR: missing nodes in connection between nodes with id ${this.first_node_id}`);
-            return new NodeConnection(this.first_node_id, this.second_node_id, new PIXI.Graphics(), new Text());
+            return new NodeConnection(this.first_node_id, this.second_node_id, new zGraphics(), new zText());
         }
 
-        const loaded_text = new Text(this.text, this.text_style);
-        const loaded_line = new PIXI.Graphics()
+        const loaded_text = new zText(this.text, this.text_style, constants.CONNECTION_Z_ORDER);
+        const loaded_line = new zGraphics(constants.CONNECTION_Z_ORDER)
             .lineStyle(this.line_style.width, this.line_style.color, this.line_style.alpha)
             .moveTo(node_one.text.x, node_one.text.y)
             .lineTo(node_two.text.x, node_two.text.y);

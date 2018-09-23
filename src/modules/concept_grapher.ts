@@ -5,7 +5,7 @@ import constants from "../constants";
 import { GraphWidget } from "./widgets/graph_widget";
 import ControlsWidget from "./widgets/controls_widget";
 import { GraphNode } from "./graph/graph_node";
-import { Text } from 'pixi.js';
+import { zViewport, zText } from "../classes_with_z_order";
 
 export class ConceptGrapher {
     private active_graph_widget: GraphWidget;
@@ -16,15 +16,16 @@ export class ConceptGrapher {
     private state_persister = new StatePersister();
 
 
-    constructor(public viewport: Viewport) {
+    constructor(public viewport: zViewport) {
         const initial_graph_state = this.state_persister.load_graph(join(constants.DEFAULT_GRAPH_STORAGE_PATH, constants.DEFAULT_STORED_GRAPH_NAME), viewport) || new GraphState(viewport);
 
         this.graph_widgets = [new GraphWidget(this, initial_graph_state)];
         this.active_graph_widget = this.graph_widgets[0];
 
-        const message: Text = new Text(
+        const message: zText = new zText(
             'Hello ConceptGrapher!',
-            constants.DEFAULT_FONT
+            constants.DEFAULT_FONT,
+            constants.NODE_Z_ORDER,
         );
         this.active_graph_widget.graph_state.add_node(new GraphNode(0, message));
         message.position.set(0 - message.width / 2, 0 - message.height / 2);

@@ -2,6 +2,7 @@ import { GraphState, JSONableGraphState } from "./graph/graph_state";
 import { writeFile, readFileSync } from 'fs';
 import { JSONableGraphNode } from "./graph/graph_node";
 import { JSONableNodeConnection } from "./graph/node_connection";
+import { zViewport } from "../classes_with_z_order";
 
 export default class StatePersister {
     constructor() { };
@@ -20,7 +21,7 @@ export default class StatePersister {
         });
     };
 
-    load_graph(file_path: string, viewport: Viewport): GraphState | null {
+    load_graph(file_path: string, viewport: zViewport): GraphState | null {
         try {
             const json_graph = JSON.parse(readFileSync(file_path).toString());
 

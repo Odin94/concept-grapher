@@ -1,23 +1,27 @@
-import { Text, PointLike } from 'pixi.js';
+import { PointLike } from 'pixi.js';
 import constants from '../../constants';
 import { GraphNode, JSONableGraphNode } from './graph_node';
 import { NodeConnection, JSONableNodeConnection } from './node_connection';
+import { zViewport, zText } from '../../classes_with_z_order';
 
 export class GraphState {
     temporary_node: GraphNode | null = null;
 
-    constructor(public viewport: Viewport, public nodes: Array<GraphNode> = [], public connections: Array<NodeConnection> = []) { };
+    constructor(public viewport: zViewport, public nodes: Array<GraphNode> = [], public connections: Array<NodeConnection> = []) { };
 
     add_node(node: GraphNode) {
         this.nodes.push(node);
         node.add_to_viewport(this.viewport);
+
+        this.viewport.update_draw_order();
     };
 
     add_connection(connection: NodeConnection) {
         this.connections.push(connection);
-
         connection.add_to_viewport(this.viewport);
-    }
+
+        this.viewport.update_draw_order();
+    };
 
     remove_node(nodeId: number) {
         const removed_node = this.nodes.find(elem => elem.id !== nodeId);
@@ -53,7 +57,7 @@ export class GraphState {
         this.write_to_graph_and_null_temporary_node();
 
         const new_id = this.get_max_id() + 1;
-        const new_text = new Text("TEST_REMOVE_THIS", constants.DEFAULT_FONT);
+        const new_text = new zText("TEST_REMOVE_THIS", constants.DEFAULT_FONT, constants.NODE_Z_ORDER);
         new_text.position.set(mouse_point.x, mouse_point.y);
         this.temporary_node = new GraphNode(new_id, new_text);
 
@@ -98,7 +102,7 @@ export class GraphState {
 export class JSONableGraphState {
     constructor(public nodes: Array<JSONableGraphNode>, public connections: Array<JSONableNodeConnection>) { }
 
-    to_graph_state(viewport: Viewport): GraphState {
+    to_graph_state(viewport: zViewport): GraphState {
         const loaded_nodes: Array<GraphNode> = [];
         for (const node of this.nodes) {
             const graph_node = node.to_graph_node();

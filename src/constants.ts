@@ -4,4 +4,6 @@ export default {
     DEFAULT_STORED_GRAPH_NAME: "graph.json",
     DEFAULT_LINE_STYLE: [/* width */ 2, /* color: */ 0xD5402B, /* alpha: */ 1],
 
+    NODE_Z_ORDER: 10,
+    CONNECTION_Z_ORDER: 2
 };
