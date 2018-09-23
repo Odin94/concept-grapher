@@ -1,3 +1,5 @@
+[Note: Concept Grapher is unfinished and not ready for use]
+
 # Concept Grapher
 Concept map tool written with Typescript and Electron.
 
