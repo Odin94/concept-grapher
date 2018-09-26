@@ -17,6 +17,8 @@ export class GraphState {
     };
 
     add_connection(connection: NodeConnection) {
+        this.write_to_graph_and_null_temporary_node();
+        connection.update_connection_position(this);
         this.connections.push(connection);
         connection.add_to_viewport(this.viewport);
 

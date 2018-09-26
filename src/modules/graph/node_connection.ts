@@ -22,18 +22,69 @@ export class NodeConnection {
         const first_node = graph_state.nodes.find(node => node.id === this.first_node_id) as GraphNode;
         const second_node = graph_state.nodes.find(node => node.id === this.second_node_id) as GraphNode;
 
+        console.log(this.first_node_id);
+        console.log(this.second_node_id);
+
         const first_x = first_node.get_x();
         const first_y = first_node.get_y();
-        const first_w = first_node.get_w();
-        const first_h = first_node.get_h();
+        const first_xw = first_x + first_node.get_w();
+        const first_yh = first_y + first_node.get_h();
 
         const second_x = second_node.get_x();
         const second_y = second_node.get_y();
-        const second_w = second_node.get_w();
-        const second_h = second_node.get_h();
+        const second_xw = second_x + second_node.get_w();
+        const second_yh = second_y + second_node.get_h();
 
-        let first_node_position: Point, second_node_position: Point;
-        // if ()
+        let first_node_x: number, first_node_y: number, second_node_x: number, second_node_y: number;
+
+        // TODO: write some pretty functions to make this readable
+        // first fully left of second
+        if (first_xw < second_x) {
+            first_node_x = first_xw;
+            second_node_x = second_x;
+        }
+        // first slightly left of second
+        else if (first_xw < second_xw) {
+            first_node_x = first_x + first_node.get_w() / 2;
+            second_node_x = second_x + second_node.get_w() / 2;
+        }
+        // first slightly right of second
+        else if (first_x < second_xw) {
+            first_node_x = first_x + first_node.get_w() / 2;
+            second_node_x = second_x + second_node.get_w() / 2;
+        }
+        // first fully right of second
+        else {
+            first_node_x = first_x;
+            second_node_x = second_xw;
+        }
+
+        // first fully above second
+        if (first_yh < second_y) {
+            first_node_y = first_yh;
+            second_node_y = second_y;
+        }
+        // first slightly above second
+        else if (first_yh < second_yh) {
+            first_node_y = first_y + first_node.get_h() / 2;
+            second_node_y = second_y + second_node.get_h() / 2;
+        }
+        // first slightly below second
+        else if (first_y < second_y) {
+            first_node_y = first_y + first_node.get_h() / 2;
+            second_node_y = second_y + second_node.get_h() / 2;
+        }
+        // first fully below second
+        else {
+            first_node_y = first_y;
+            second_node_y = second_yh;
+        }
+
+        this.line
+            .clear()
+            .lineStyle(...constants.DEFAULT_LINE_STYLE)
+            .moveTo(first_node_x, first_node_y)
+            .lineTo(second_node_x, second_node_y);
     }
 
     to_jsonable_node_connection(): JSONableNodeConnection {

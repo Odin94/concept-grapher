@@ -70,7 +70,7 @@ export default class MouseInput {
         this.viewport.resumePlugin("drag");
 
         const target_node = this.select_node(event.data.global as Point);
-        if (target_node) {
+        if (target_node && target_node.id != this.temp_connection.start_node.id) {
             const line = new PIXI.Graphics()
                 .lineStyle(...constants.DEFAULT_LINE_STYLE)
                 .moveTo(this.temp_connection.start_node.get_x(), this.temp_connection.start_node.get_y())
