@@ -27,12 +27,12 @@ export default class MouseInput {
     private on_click(data: Viewport.ClickEventData) {
         const selected_node = this.select_node(data.screen as Point);
         if (selected_node) {
-            this.graph_widget.graph_state.write_to_graph_and_null_temporary_node();
+            this.graph_widget.write_to_graph_and_null_temporary_node();
             this.graph_widget.select_node(selected_node);
         } else {
-            this.graph_widget.graph_state.write_to_graph_and_null_temporary_node();
-            this.graph_widget.graph_state.create_temporary_node(data.world);
-            this.graph_widget.select_node(this.graph_widget.graph_state.temporary_node as GraphNode);
+            this.graph_widget.write_to_graph_and_null_temporary_node();
+            this.graph_widget.create_temporary_node(data.world);
+            this.graph_widget.select_node(this.graph_widget.get_graph().temporary_node as GraphNode);
         }
     };
 
@@ -79,7 +79,7 @@ export default class MouseInput {
             const text = new zText('', constants.DEFAULT_FONT, constants.NODE_Z_ORDER);
 
             const new_connection = new NodeConnection(this.temp_connection.start_node.id, target_node.id, line, text);
-            this.graph_widget.graph_state.add_connection(new_connection);
+            this.graph_widget.add_connection(new_connection);
         }
 
         this.viewport.removeChild(this.temp_connection.line);
@@ -87,7 +87,8 @@ export default class MouseInput {
     };
 
     private select_node(mouse_point: Point): GraphNode | null {
-        const all_nodes: Array<GraphNode> = this.graph_widget.graph_state.temporary_node ? this.graph_widget.graph_state.nodes.concat(this.graph_widget.graph_state.temporary_node) : this.graph_widget.graph_state.nodes;
+        const graph_state = this.graph_widget.get_graph();
+        const all_nodes: Array<GraphNode> = graph_state.temporary_node ? graph_state.nodes.concat(graph_state.temporary_node) : graph_state.nodes;
 
         return all_nodes.find(({ text }) => {
             return text.containsPoint(mouse_point);

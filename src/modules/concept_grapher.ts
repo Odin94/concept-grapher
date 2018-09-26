@@ -27,7 +27,7 @@ export class ConceptGrapher {
             constants.DEFAULT_FONT,
             constants.NODE_Z_ORDER,
         );
-        this.active_graph_widget.graph_state.add_node(new GraphNode(0, message));
+        this.active_graph_widget.add_graph_node(new GraphNode(0, message));
         message.position.set(0 - message.width / 2, 0 - message.height / 2);
     };
 
@@ -40,8 +40,8 @@ export class ConceptGrapher {
     };
 
     save_active_graph(save_path: string = join(constants.DEFAULT_GRAPH_STORAGE_PATH, constants.DEFAULT_STORED_GRAPH_NAME)) {
-        this.active_graph_widget.graph_state.write_to_graph_and_null_temporary_node();
-        this.state_persister.store_graph(this.active_graph_widget.graph_state, save_path);
+        this.active_graph_widget.write_to_graph_and_null_temporary_node();
+        this.state_persister.store_graph(this.active_graph_widget.get_graph(), save_path);
     };
 
     load_graph(load_path: string) {
