@@ -13,6 +13,22 @@ export class GraphNode {
         viewport.removeChild(this.text);
     };
 
+    get_x() {
+        return this.text.x;
+    }
+
+    get_y() {
+        return this.text.y;
+    }
+
+    get_w() {
+        return this.text.width;
+    }
+
+    get_h() {
+        return this.text.height;
+    }
+
     to_jsonable_graph_node(): JSONableGraphNode {
         // text.x/y is in world-coords
         return new JSONableGraphNode(

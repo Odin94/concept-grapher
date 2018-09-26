@@ -43,7 +43,7 @@ export default class MouseInput {
 
             const line = new PIXI.Graphics()
                 .lineStyle(...constants.DEFAULT_LINE_STYLE)
-                .moveTo(selected_node.text.x, selected_node.text.y);
+                .moveTo(selected_node.get_x(), selected_node.get_y());
 
             this.viewport.addChild(line);
             this.temp_connection = { start_node: selected_node, line: line };
@@ -57,7 +57,7 @@ export default class MouseInput {
             this.temp_connection.line
                 .clear()
                 .lineStyle(...constants.DEFAULT_LINE_STYLE)
-                .moveTo(this.temp_connection.start_node.text.x, this.temp_connection.start_node.text.y)
+                .moveTo(this.temp_connection.start_node.get_x(), this.temp_connection.start_node.get_y())
                 .lineTo(line_target.x, line_target.y);
 
             this.viewport.addChild(this.temp_connection.line);
@@ -73,8 +73,8 @@ export default class MouseInput {
         if (target_node) {
             const line = new PIXI.Graphics()
                 .lineStyle(...constants.DEFAULT_LINE_STYLE)
-                .moveTo(this.temp_connection.start_node.text.x, this.temp_connection.start_node.text.y)
-                .lineTo(target_node.text.x, target_node.text.y);
+                .moveTo(this.temp_connection.start_node.get_x(), this.temp_connection.start_node.get_y())
+                .lineTo(target_node.get_x(), target_node.get_y());
 
             const text = new zText('', constants.DEFAULT_FONT, constants.NODE_Z_ORDER);
 

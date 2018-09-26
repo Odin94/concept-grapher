@@ -2,6 +2,8 @@ import { TextStyleOptions } from 'pixi.js';
 import { GraphNode } from './graph_node';
 import { zText, zGraphics } from '../../classes_with_z_order';
 import constants from '../../constants';
+import { GraphState } from './graph_state';
+import { Point } from 'electron';
 
 export class NodeConnection {
     constructor(public readonly first_node_id: number, public readonly second_node_id: number, public line: zGraphics, public text: zText) { };
@@ -15,6 +17,24 @@ export class NodeConnection {
         viewport.removeChild(this.text);
         viewport.removeChild(this.line);
     };
+
+    update_connection_position(graph_state: GraphState) {
+        const first_node = graph_state.nodes.find(node => node.id === this.first_node_id) as GraphNode;
+        const second_node = graph_state.nodes.find(node => node.id === this.second_node_id) as GraphNode;
+
+        const first_x = first_node.get_x();
+        const first_y = first_node.get_y();
+        const first_w = first_node.get_w();
+        const first_h = first_node.get_h();
+
+        const second_x = second_node.get_x();
+        const second_y = second_node.get_y();
+        const second_w = second_node.get_w();
+        const second_h = second_node.get_h();
+
+        let first_node_position: Point, second_node_position: Point;
+        // if ()
+    }
 
     to_jsonable_node_connection(): JSONableNodeConnection {
         return new JSONableNodeConnection(
@@ -51,8 +71,8 @@ export class JSONableNodeConnection {
         const loaded_text = new zText(this.text, this.text_style, constants.CONNECTION_Z_ORDER);
         const loaded_line = new zGraphics(constants.CONNECTION_Z_ORDER)
             .lineStyle(this.line_style.width, this.line_style.color, this.line_style.alpha)
-            .moveTo(node_one.text.x, node_one.text.y)
-            .lineTo(node_two.text.x, node_two.text.y);
+            .moveTo(node_one.get_x(), node_one.get_y())
+            .lineTo(node_two.get_x(), node_two.get_y());
 
         return new NodeConnection(this.first_node_id, this.second_node_id, loaded_line, loaded_text);
     };
