@@ -41,9 +41,7 @@ export default class MouseInput {
         if (selected_node) {
             this.viewport.pausePlugin("drag");
 
-            const line = new PIXI.Graphics()
-                .lineStyle(...constants.DEFAULT_LINE_STYLE)
-                .moveTo(selected_node.get_x(), selected_node.get_y());
+            const line = new PIXI.Graphics();
 
             this.viewport.addChild(line);
             this.temp_connection = { start_node: selected_node, line: line };
@@ -57,7 +55,7 @@ export default class MouseInput {
             this.temp_connection.line
                 .clear()
                 .lineStyle(...constants.DEFAULT_LINE_STYLE)
-                .moveTo(this.temp_connection.start_node.get_x(), this.temp_connection.start_node.get_y())
+                .moveTo(this.temp_connection.start_node.get_x() + this.temp_connection.start_node.get_w() / 2, this.temp_connection.start_node.get_y() + this.temp_connection.start_node.get_h() / 2)
                 .lineTo(line_target.x, line_target.y);
 
             this.viewport.addChild(this.temp_connection.line);
