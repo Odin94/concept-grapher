@@ -17,8 +17,16 @@ export class GraphNode {
         return this.text.x;
     }
 
+    set_x(x: number) {
+        this.text.x = x;
+    }
+
     get_y() {
         return this.text.y;
+    }
+
+    set_y(y: number) {
+        this.text.y = y;
     }
 
     get_w() {

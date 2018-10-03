@@ -47,7 +47,6 @@ export class ConceptGrapher {
     load_graph(load_path: string) {
         const new_graph = this.state_persister.load_graph(load_path, this.viewport);
 
-        // TODO: put create new graph_widget for new_graph and display it, hide old active graph
         if (new_graph) {
             this.active_graph_widget.clear_active_graph();
             this.active_graph_widget.set_new_graph(new_graph);

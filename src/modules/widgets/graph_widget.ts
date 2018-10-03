@@ -1,16 +1,16 @@
 import { GraphState } from "../graph/graph_state";
 import { GraphNode } from "../graph/graph_node";
-import MouseInput from "../mouse_input";
+import CanvasInputs from "../io_handlers/canvas_inputs";
 import { ConceptGrapher } from "../concept_grapher";
 import { NodeConnection } from "../graph/node_connection";
 import { PointLike } from "pixi.js";
 
 export class GraphWidget {
     public selected_node: GraphNode | null;
-    private mouse_input: MouseInput;
+    private mouse_input: CanvasInputs;
 
     constructor(private concept_grapher: ConceptGrapher, private graph_state: GraphState) {
-        this.mouse_input = new MouseInput(concept_grapher.viewport, this);
+        this.mouse_input = new CanvasInputs(concept_grapher.viewport, this);
     };
 
     add_graph_node(node: GraphNode) {
