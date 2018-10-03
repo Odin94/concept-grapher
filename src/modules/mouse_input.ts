@@ -51,11 +51,12 @@ export default class MouseInput {
     private on_drag_move(event: PIXI.interaction.InteractionEvent) {
         if (this.temp_connection) {
             const line_target = this.viewport.toWorld(new Point(event.data.global.x, event.data.global.y));
+            const connection_line_points = this.temp_connection.start_node.get_connection_line_to_point(line_target);
 
             this.temp_connection.line
                 .clear()
                 .lineStyle(...constants.DEFAULT_LINE_STYLE)
-                .moveTo(this.temp_connection.start_node.get_x() + this.temp_connection.start_node.get_w() / 2, this.temp_connection.start_node.get_y() + this.temp_connection.start_node.get_h() / 2)
+                .moveTo(connection_line_points.first.x, connection_line_points.first.y)
                 .lineTo(line_target.x, line_target.y);
 
             this.viewport.addChild(this.temp_connection.line);
