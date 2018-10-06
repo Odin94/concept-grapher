@@ -7,14 +7,14 @@ import { zViewport, zText } from '../../classes_with_z_order';
 export class GraphState {
     temporary_node: GraphNode | null = null;
 
-    constructor(public viewport: zViewport, public nodes: Array<GraphNode> = [], public connections: Array<NodeConnection> = []) { };
+    constructor(public viewport: zViewport, public nodes: Array<GraphNode> = [], public connections: Array<NodeConnection> = []) { }
 
     add_node(node: GraphNode) {
         this.nodes.push(node);
         node.add_to_viewport(this.viewport);
 
         this.viewport.update_draw_order();
-    };
+    }
 
     add_connection(connection: NodeConnection) {
         this.write_to_graph_and_null_temporary_node();
@@ -23,7 +23,7 @@ export class GraphState {
         connection.add_to_viewport(this.viewport);
 
         this.viewport.update_draw_order();
-    };
+    }
 
     remove_node(nodeId: number) {
         const removed_node = this.nodes.find(elem => elem.id !== nodeId);
@@ -32,7 +32,7 @@ export class GraphState {
             this.nodes = this.nodes.filter(elem => elem.id !== nodeId);
             removed_node.remove_from_viewport(this.viewport);
         }
-    };
+    }
 
     remove_connection(connection: NodeConnection) {
         const removed_connection = this.connections.find(elem => elem.first_node_id !== connection.first_node_id && elem.second_node_id !== connection.second_node_id);
@@ -64,14 +64,14 @@ export class GraphState {
         this.temporary_node = new GraphNode(new_id, new_text);
 
         this.temporary_node.add_to_viewport(this.viewport);
-    };
+    }
 
     destroy_temporary_node() {
         if (this.temporary_node === null) return;
 
         this.temporary_node.remove_from_viewport(this.viewport);
         this.temporary_node = null;
-    };
+    }
 
     write_to_graph_and_null_temporary_node() {
         if (this.temporary_node === null) return;
@@ -79,7 +79,7 @@ export class GraphState {
         this.viewport.removeChild(this.temporary_node.text);
         this.add_node(this.temporary_node);
         this.temporary_node = null;
-    };
+    }
 
     to_jsonanble_graph_state(): JSONableGraphState {
         const jsonable_nodes: Array<JSONableGraphNode> = [];
@@ -93,13 +93,13 @@ export class GraphState {
         }
 
         return new JSONableGraphState(jsonable_nodes, jsonable_connections);
-    };
+    }
 
     private get_max_id(): number {
         const ids: Array<number> = this.nodes.map((node) => node.id);
         return ids.length > 0 ? Math.max(...ids) : 0;
-    };
-};
+    }
+}
 
 export class JSONableGraphState {
     constructor(public nodes: Array<JSONableGraphNode>, public connections: Array<JSONableNodeConnection>) { }
@@ -120,5 +120,5 @@ export class JSONableGraphState {
         }
 
         return new GraphState(viewport, loaded_nodes, loaded_connections);
-    };
-};
+    }
+}
