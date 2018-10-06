@@ -24,6 +24,10 @@ export default class CanvasInputs {
         this.graph_widget.select_node(selected_node);
     }
 
+    remove_selected_node() {
+        this.graph_widget.remove_selected_node();
+    }
+
     click_empty_space(world_position: PointLike) {
         this.graph_widget.write_to_graph_and_null_temporary_node();
         this.graph_widget.create_temporary_node(world_position);

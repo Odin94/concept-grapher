@@ -54,9 +54,9 @@ export class GraphNode {
     }
 
     update_connections_positions(graph_state: GraphState) {
-        const connections_to_update = graph_state.connections.filter((connection) => {
-            return connection.first_node_id === this.id || connection.second_node_id === this.id;
-        });
+        const connections_to_update = graph_state.connections.filter(
+            connection => connection.first_node_id === this.id || connection.second_node_id === this.id
+        );
 
         for (const connection of connections_to_update) {
             connection.update_connection_position(graph_state);

@@ -26,20 +26,28 @@ export class GraphState {
     }
 
     remove_node(nodeId: number) {
-        const removed_node = this.nodes.find(elem => elem.id !== nodeId);
+        const removed_node = this.nodes.find(elem => elem.id === nodeId);
 
         if (removed_node) {
-            this.nodes = this.nodes.filter(elem => elem.id !== nodeId);
+            this.connections = this.connections.filter(
+                connection => connection.first_node_id !== removed_node.id || connection.second_node_id !== removed_node.id
+            );
+
             removed_node.remove_from_viewport(this.viewport);
+            this.nodes = this.nodes.filter(elem => elem.id !== nodeId);
         }
     }
 
     remove_connection(connection: NodeConnection) {
-        const removed_connection = this.connections.find(elem => elem.first_node_id !== connection.first_node_id && elem.second_node_id !== connection.second_node_id);
+        const removed_connection = this.connections.find(
+            elem => elem.first_node_id !== connection.first_node_id && elem.second_node_id !== connection.second_node_id
+        );
 
         if (removed_connection) {
-            this.connections = this.connections.filter(elem => elem.first_node_id !== connection.first_node_id && elem.second_node_id !== connection.second_node_id);
             removed_connection.remove_from_viewport(this.viewport);
+            this.connections = this.connections.filter(
+                elem => elem.first_node_id !== connection.first_node_id && elem.second_node_id !== connection.second_node_id
+            );
         }
     }
 

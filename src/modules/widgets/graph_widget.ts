@@ -7,10 +7,10 @@ import { PointLike } from "pixi.js";
 
 export class GraphWidget {
     public selected_node: GraphNode | null;
-    private mouse_input: CanvasInputs;
+    private canvas_input: CanvasInputs;
 
     constructor(private concept_grapher: ConceptGrapher, private graph_state: GraphState) {
-        this.mouse_input = new CanvasInputs(concept_grapher.viewport, this);
+        this.canvas_input = new CanvasInputs(concept_grapher.viewport, this);
     };
 
     add_graph_node(node: GraphNode) {
@@ -23,6 +23,8 @@ export class GraphWidget {
 
     create_temporary_node(mouse_point: PointLike) {
         this.graph_state.create_temporary_node(mouse_point);
+
+        if (this.graph_state.temporary_node) this.select_node(this.graph_state.temporary_node);
     }
 
     write_to_graph_and_null_temporary_node() {
@@ -38,6 +40,12 @@ export class GraphWidget {
 
         this.concept_grapher.on_select_new_node(node);
     };
+
+    remove_selected_node() {
+        if (this.selected_node) {
+            this.graph_state.remove_node(this.selected_node.id);
+        }
+    }
 
     set_new_graph(new_graph: GraphState) {
         this.clear_active_graph();
