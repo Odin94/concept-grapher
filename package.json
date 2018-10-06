@@ -1,7 +1,7 @@
 {
   "name": "concept-grapher",
   "version": "0.0.1",
-  "description": "A minimal Electron application written with Typescript",
+  "description": "A tool for drawing concept graphs",
   "scripts": {
     "build": "tsc && node-sass --include-path scss scss/main.scss dist/css/main.css",
     "watch": "tsc -w",
@@ -20,8 +20,10 @@
   "author": "Odin94",
   "license": "SEE LICENSE IN LICENSE",
   "devDependencies": {
+    "@types/mousetrap": "^1.6.0",
     "@types/pixi.js": "^4.8.0",
     "electron": "^2.0.8",
+    "mousetrap": "^1.6.2",
     "node-sass": "^4.9.3",
     "pixi-viewport": "^3.6.0",
     "pixi.js": "^4.8.1",

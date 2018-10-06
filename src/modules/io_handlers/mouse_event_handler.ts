@@ -23,44 +23,35 @@ export default class MouseEventHandler {
     private on_click(data: Viewport.ClickEventData) {
         const selected_node = this.select_node(data.screen as Point);
         if (selected_node) {
-            this.canvas_inputs.graph_widget.write_to_graph_and_null_temporary_node();
-            this.canvas_inputs.graph_widget.select_node(selected_node);
+            this.canvas_inputs.click_node(selected_node);
         } else {
-            this.canvas_inputs.graph_widget.write_to_graph_and_null_temporary_node();
-            this.canvas_inputs.graph_widget.create_temporary_node(data.world);
-            this.canvas_inputs.graph_widget.select_node(this.canvas_inputs.graph_widget.get_graph().temporary_node as GraphNode);
+            this.canvas_inputs.click_empty_space(data.world);
         }
     }
 
     private on_drag_start(event: PIXI.interaction.InteractionEvent) {
         const selected_node = this.select_node(event.data.global as Point);
+
         if (selected_node) {
             this.canvas_inputs.viewport.pausePlugin("drag");
 
-
-            const line = new PIXI.Graphics();
-
-            this.canvas_inputs.viewport.addChild(line);
-            this.canvas_inputs.temp_connection = { start_node: selected_node, line: line };
+            if (this.canvas_inputs.keyboard.key_states.control.isDown) {
+                this.canvas_inputs.start_dragging_node(selected_node);
+            }
+            else {
+                this.canvas_inputs.start_drawing_connection(selected_node);
+            }
         }
     }
 
     private on_drag_move(event: PIXI.interaction.InteractionEvent) {
+        const world_target = this.canvas_inputs.viewport.toWorld(new Point(event.data.global.x, event.data.global.y));
+
         if (this.canvas_inputs.temp_connection) {
-            const line_target = this.canvas_inputs.viewport.toWorld(new Point(event.data.global.x, event.data.global.y));
-            const connection_line_points = this.canvas_inputs.temp_connection.start_node.get_connection_line_to_point(line_target);
-
-            this.canvas_inputs.temp_connection.line
-                .clear()
-                .lineStyle(...constants.DEFAULT_LINE_STYLE)
-                .moveTo(connection_line_points.first.x, connection_line_points.first.y)
-                .lineTo(line_target.x, line_target.y);
-
-            this.canvas_inputs.viewport.addChild(this.canvas_inputs.temp_connection.line);
+            this.canvas_inputs.update_drawn_connection(world_target, this.canvas_inputs.temp_connection);
         }
         else if (this.canvas_inputs.dragged_node) {
-            this.canvas_inputs.dragged_node.set_x(event.data.global.x);
-            this.canvas_inputs.dragged_node.set_y(event.data.global.y);
+            this.canvas_inputs.drag_node(this.canvas_inputs.dragged_node, world_target);
         }
     }
 
@@ -70,22 +61,13 @@ export default class MouseEventHandler {
         if (this.canvas_inputs.temp_connection) {
             const target_node = this.select_node(event.data.global as Point);
             if (target_node && target_node.id != this.canvas_inputs.temp_connection.start_node.id) {
-                const line = new PIXI.Graphics()
-                    .lineStyle(...constants.DEFAULT_LINE_STYLE)
-                    .moveTo(this.canvas_inputs.temp_connection.start_node.get_x(), this.canvas_inputs.temp_connection.start_node.get_y())
-                    .lineTo(target_node.get_x(), target_node.get_y());
-
-                const text = new zText('', constants.DEFAULT_FONT, constants.NODE_Z_ORDER);
-
-                const new_connection = new NodeConnection(this.canvas_inputs.temp_connection.start_node.id, target_node.id, line, text);
-                this.canvas_inputs.graph_widget.add_connection(new_connection);
+                this.canvas_inputs.create_connection(target_node, this.canvas_inputs.temp_connection);
             }
 
-            this.canvas_inputs.viewport.removeChild(this.canvas_inputs.temp_connection.line);
-            this.canvas_inputs.temp_connection = null;
+            this.canvas_inputs.stop_drawing_connection(this.canvas_inputs.temp_connection);
         }
         else if (this.canvas_inputs.dragged_node) {
-
+            this.canvas_inputs.stop_dragging_node();
         }
     }
 
