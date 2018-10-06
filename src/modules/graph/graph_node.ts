@@ -1,6 +1,8 @@
 import { TextStyleOptions, Point } from 'pixi.js';
 import { zText } from '../../classes_with_z_order';
 import constants from '../../constants';
+import { GraphState } from './graph_state';
+import { connect } from 'net';
 
 export class GraphNode {
     constructor(public readonly id: number, public text: zText) { }
@@ -49,6 +51,16 @@ export class GraphNode {
             this.get_x(), this.get_y(), this.get_w(), this.get_h(),
             point.x, point.y, point.x, point.y
         );
+    }
+
+    update_connections_positions(graph_state: GraphState) {
+        const connections_to_update = graph_state.connections.filter((connection) => {
+            return connection.first_node_id === this.id || connection.second_node_id === this.id;
+        });
+
+        for (const connection of connections_to_update) {
+            connection.update_connection_position(graph_state);
+        }
     }
 
     private get_connection_line(

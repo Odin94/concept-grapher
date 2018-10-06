@@ -1,8 +1,5 @@
 import { GraphNode } from "../graph/graph_node";
 import { Point } from "pixi.js";
-import constants from "../../constants";
-import { zText } from "../../classes_with_z_order";
-import { NodeConnection } from "../graph/node_connection";
 import CanvasInputs from "./canvas_inputs";
 
 export default class MouseEventHandler {
@@ -79,4 +76,4 @@ export default class MouseEventHandler {
             return text.containsPoint(mouse_point);
         }) || null;
     }
-};
+}

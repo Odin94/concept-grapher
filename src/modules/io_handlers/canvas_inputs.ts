@@ -44,6 +44,8 @@ export default class CanvasInputs {
     drag_node(dragged_node: GraphNode, world_drag_target: Point) {
         dragged_node.set_x(world_drag_target.x);
         dragged_node.set_y(world_drag_target.y);
+
+        dragged_node.update_connections_positions(this.graph_widget.get_graph());
     }
 
     stop_dragging_node() {
