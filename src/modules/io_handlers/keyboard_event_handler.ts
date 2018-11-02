@@ -25,6 +25,6 @@ export default class KeyboardEventHandler {
     }
 
     private delete_pressed() {
-        if (this.control_down) this.canvas_inputs.remove_selected_node();
+        if (this.key_states.control.isDown) this.canvas_inputs.remove_selected_node();
     }
 }
