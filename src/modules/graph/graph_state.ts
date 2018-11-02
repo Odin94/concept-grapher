@@ -29,25 +29,34 @@ export class GraphState {
         const removed_node = this.nodes.find(elem => elem.id === nodeId);
 
         if (removed_node) {
-            this.connections = this.connections.filter(
-                connection => connection.first_node_id !== removed_node.id || connection.second_node_id !== removed_node.id
-            );
+            this.remove_associated_connections(nodeId);
 
             removed_node.remove_from_viewport(this.viewport);
             this.nodes = this.nodes.filter(elem => elem.id !== nodeId);
         }
     }
 
+    remove_associated_connections(nodeId: number) {
+        const connections_to_remove = [];
+        for (const connection of this.connections) {
+            if (connection.first_node_id == nodeId || connection.second_node_id == nodeId) {
+                connections_to_remove.push(connection);
+            }
+        }
+        for (const to_remove of connections_to_remove) {
+            this.remove_connection(to_remove);
+        }
+    }
+
     remove_connection(connection: NodeConnection) {
-        const removed_connection = this.connections.find(
-            elem => elem.first_node_id !== connection.first_node_id && elem.second_node_id !== connection.second_node_id
+        const removed_connection_index = this.connections.findIndex(
+            elem => elem.first_node_id === connection.first_node_id && elem.second_node_id === connection.second_node_id
         );
+        const removed_connection = this.connections[removed_connection_index];
 
         if (removed_connection) {
             removed_connection.remove_from_viewport(this.viewport);
-            this.connections = this.connections.filter(
-                elem => elem.first_node_id !== connection.first_node_id && elem.second_node_id !== connection.second_node_id
-            );
+            this.connections.splice(removed_connection_index, 1);
         }
     }
 
