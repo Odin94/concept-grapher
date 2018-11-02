@@ -37,12 +37,10 @@ export class GraphState {
     }
 
     remove_associated_connections(nodeId: number) {
-        const connections_to_remove = [];
-        for (const connection of this.connections) {
-            if (connection.first_node_id == nodeId || connection.second_node_id == nodeId) {
-                connections_to_remove.push(connection);
-            }
-        }
+        const connections_to_remove = this.connections.filter(
+            connection => connection.first_node_id == nodeId || connection.second_node_id == nodeId
+        );
+
         for (const to_remove of connections_to_remove) {
             this.remove_connection(to_remove);
         }
