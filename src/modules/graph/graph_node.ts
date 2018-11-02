@@ -2,16 +2,28 @@ import { TextStyleOptions, Point } from 'pixi.js';
 import { zText } from '../../classes_with_z_order';
 import constants from '../../constants';
 import { GraphState } from './graph_state';
-import { connect } from 'net';
 
 export class GraphNode {
-    constructor(public readonly id: number, public text: zText) { }
+
+    public border_rect = new PIXI.Graphics();  // TODO: find a better name for this
+    constructor(public readonly id: number, public text: zText) {
+        this.border_rect.beginFill(constants.DEFAULT_NODE_BACKGROUND_COLOR);
+        this.border_rect.drawRoundedRect(
+            this.text.x - this.text.width / 2 - constants.NODE_BACKGROUND_MARGIN,
+            this.text.y - this.text.height / 2 - constants.NODE_BACKGROUND_MARGIN,
+            this.text.width + 2 * constants.NODE_BACKGROUND_MARGIN,
+            this.text.height + 2 * constants.NODE_BACKGROUND_MARGIN,
+            10
+        );
+    }
 
     add_to_viewport(viewport: Viewport) {
+        viewport.addChild(this.border_rect);
         viewport.addChild(this.text);
     }
 
     remove_from_viewport(viewport: Viewport) {
+        viewport.removeChild(this.border_rect);
         viewport.removeChild(this.text);
     }
 
@@ -21,6 +33,7 @@ export class GraphNode {
 
     set_x(x: number) {
         this.text.x = x;
+        this.border_rect.x = this.text.x - this.text.width / 2 - constants.NODE_BACKGROUND_MARGIN;
     }
 
     get_y() {
@@ -29,6 +42,7 @@ export class GraphNode {
 
     set_y(y: number) {
         this.text.y = y;
+        this.border_rect.y = this.text.y - this.text.height / 2 - constants.NODE_BACKGROUND_MARGIN;
     }
 
     get_w() {
