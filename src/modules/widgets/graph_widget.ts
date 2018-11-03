@@ -51,6 +51,8 @@ export class GraphWidget {
         this.clear_active_graph();
         this.graph_state = new_graph;
         this.concept_grapher.viewport.moveCenter(0, 0);
+
+        this.graph_state.connections.forEach(connection => connection.update_connection_position(this.graph_state));
     };
 
     clear_active_graph() {
