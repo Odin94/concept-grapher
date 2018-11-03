@@ -62,8 +62,8 @@ export class JSONableNodeConnection {
             return new NodeConnection(this.first_node_id, this.second_node_id, new zGraphics(), new zText());
         }
 
-        const loaded_text = new zText(this.text, this.text_style, constants.CONNECTION_Z_ORDER);
-        const loaded_line = new zGraphics(constants.CONNECTION_Z_ORDER)
+        const loaded_text = new zText(this.text, this.text_style, constants.Z_ORDERS.NODE_TEXT);
+        const loaded_line = new zGraphics(constants.Z_ORDERS.CONNECTION)
             .lineStyle(this.line_style.width, this.line_style.color, this.line_style.alpha)
             .moveTo(node_one.get_x(), node_one.get_y())
             .lineTo(node_two.get_x(), node_two.get_y());

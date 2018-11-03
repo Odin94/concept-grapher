@@ -5,7 +5,7 @@ import { GraphState } from './graph_state';
 
 export class GraphNode {
 
-    public background_rect = new zGraphics(constants.NODE_BACKGROUND_Z_ORDER);
+    public background_rect = new zGraphics(constants.Z_ORDERS.NODE_BACKGROUND);
     constructor(public readonly id: number, public text: zText) {
         this.update_background();
     }
@@ -171,7 +171,7 @@ export class JSONableGraphNode {
     constructor(public id: number, public text: string, public x: number, public y: number, public style: TextStyleOptions) { }
 
     to_graph_node(): GraphNode {
-        const loaded_text = new zText(this.text, this.style, constants.NODE_TEXT_Z_ORDER);
+        const loaded_text = new zText(this.text, this.style, constants.Z_ORDERS.NODE_TEXT);
         loaded_text.position.set(this.x, this.y);
 
         return new GraphNode(this.id, loaded_text);

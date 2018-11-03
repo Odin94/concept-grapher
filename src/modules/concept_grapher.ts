@@ -25,7 +25,7 @@ export class ConceptGrapher {
         const message: zText = new zText(
             'Hello ConceptGrapher!',
             constants.DEFAULT_FONT,
-            constants.NODE_TEXT_Z_ORDER,
+            constants.Z_ORDERS.NODE_TEXT,
         );
         message.position.set(0 - message.width / 2, 0 - message.height / 2);
 
