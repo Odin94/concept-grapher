@@ -7,7 +7,10 @@ import { zViewport, zText } from '../../classes_with_z_order';
 export class GraphState {
     temporary_node: GraphNode | null = null;
 
-    constructor(public viewport: zViewport, public nodes: Array<GraphNode> = [], public connections: Array<NodeConnection> = []) { }
+    constructor(public viewport: zViewport, public nodes: Array<GraphNode> = [], public connections: Array<NodeConnection> = []) {
+        this.connections.forEach(connection => connection.update_connection_position(this));
+        this.viewport.update_draw_order();
+    }
 
     add_node(node: GraphNode) {
         this.nodes.push(node);

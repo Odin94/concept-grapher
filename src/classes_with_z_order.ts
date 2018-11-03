@@ -16,6 +16,7 @@ export class zGraphics extends Graphics {
 export class zViewport extends Viewport {
     constructor(options?: Viewport.Options) { super(options); }
 
+    // TODO: make the z-order thing an interface implemented by all z-classes
     update_draw_order() {
         this.children.sort(function (a, b) {
             // @ts-ignore
