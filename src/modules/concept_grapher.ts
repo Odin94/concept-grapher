@@ -28,7 +28,7 @@ export class ConceptGrapher {
             constants.NODE_TEXT_Z_ORDER,
         );
         message.position.set(0 - message.width / 2, 0 - message.height / 2);
-        
+
         this.active_graph_widget.add_graph_node(new GraphNode(0, message));
     };
 

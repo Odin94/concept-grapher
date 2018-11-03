@@ -13,7 +13,7 @@ export default class KeyboardEventHandler {
         Mousetrap.bind(["ctrl", "command"], () => { this.control_down() }, 'keydown');
         Mousetrap.bind(["ctrl", "command"], () => { this.control_up() }, 'keyup');
 
-        Mousetrap.bind("del", () => { this.delete_pressed() });
+        Mousetrap.bind("ctrl+del", () => { this.ctrl_delete_pressed() });
     }
 
     private control_down() {
@@ -24,7 +24,7 @@ export default class KeyboardEventHandler {
         this.key_states.control.isDown = false;
     }
 
-    private delete_pressed() {
-        if (this.key_states.control.isDown) this.canvas_inputs.remove_selected_node();
+    private ctrl_delete_pressed() {
+        this.canvas_inputs.remove_selected_node();
     }
 }
