@@ -43,7 +43,6 @@ export default class ControlsWidget {
 
     on_select_new_node(node_text: string) {
         this.input.value = node_text;
-
         this.input.focus();
     };
 

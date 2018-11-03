@@ -33,6 +33,7 @@ export class ConceptGrapher {
     };
 
     on_select_new_node(node: GraphNode) {
+        this.viewport.update_draw_order();
         this.controls_widget.on_select_new_node(node.text.text);
     };
 

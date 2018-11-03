@@ -5,15 +5,29 @@ import { GraphState } from './graph_state';
 
 export class GraphNode {
 
-    public background_rect = new zGraphics(constants.Z_ORDERS.NODE_BACKGROUND);
+    public background = new zGraphics(constants.Z_ORDERS.NODE_BACKGROUND);
+    public selection_outline = new zGraphics(constants.Z_ORDERS.NODE_OUTLINE);
+    private selected = false;
     constructor(public readonly id: number, public text: zText) {
         this.update_background();
+    }
+
+    on_select() {
+        this.selected = true;
+
+        this.update_background();
+    }
+
+    on_deselect() {
+        this.selected = false;
+
+        this.selection_outline.clear()
     }
 
     update_background() {
         // Note: text.x and border_rect.x aren't directly comparable. One is world offset, the other camera offset
 
-        this.background_rect
+        this.background
             .clear()
             .beginFill(constants.DEFAULT_NODE_BACKGROUND_COLOR)
             .drawRoundedRect(
@@ -23,15 +37,30 @@ export class GraphNode {
                 this.text.height + 2 * constants.NODE_BACKGROUND_MARGIN,
                 10
             );
+
+        if (this.selected) {
+            this.selection_outline
+                .clear()
+                .lineStyle(...constants.SELECTED_NODE_OUTLINE_STYLE)
+                .drawRoundedRect(
+                    this.text.x - constants.NODE_BACKGROUND_MARGIN,
+                    this.text.y - constants.NODE_BACKGROUND_MARGIN,
+                    this.text.width + 2 * constants.NODE_BACKGROUND_MARGIN,
+                    this.text.height + 2 * constants.NODE_BACKGROUND_MARGIN,
+                    10
+                );
+        }
     }
 
     add_to_viewport(viewport: Viewport) {
-        viewport.addChild(this.background_rect);
+        viewport.addChild(this.background);
+        viewport.addChild(this.selection_outline);
         viewport.addChild(this.text);
     }
 
     remove_from_viewport(viewport: Viewport) {
-        viewport.removeChild(this.background_rect);
+        viewport.removeChild(this.background);
+        viewport.removeChild(this.selection_outline);
         viewport.removeChild(this.text);
     }
 

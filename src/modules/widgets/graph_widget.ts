@@ -4,12 +4,9 @@ import CanvasInputs from "../io_handlers/canvas_inputs";
 import { ConceptGrapher } from "../concept_grapher";
 import { NodeConnection } from "../graph/node_connection";
 import { PointLike } from "pixi.js";
-import { zGraphics } from "../../classes_with_z_order";
-import constants from "../../constants";
 
 export class GraphWidget {
     public selected_node: GraphNode | null;
-    private selected_node_outline = new zGraphics(constants.Z_ORDERS.NODE_OUTLINE);
     private canvas_input: CanvasInputs;
 
     constructor(private concept_grapher: ConceptGrapher, private graph_state: GraphState) {
@@ -39,7 +36,12 @@ export class GraphWidget {
     };
 
     select_node(node: GraphNode) {
+        if (this.selected_node) this.selected_node.on_deselect();
+        node.on_select();
+
         this.selected_node = node;
+
+
 
         this.concept_grapher.on_select_new_node(node);
     };

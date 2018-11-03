@@ -7,9 +7,11 @@ export default {
     DEFAULT_NODE_BACKGROUND_COLOR: 0x282d36,
     NODE_BACKGROUND_MARGIN: 25,
 
+    SELECTED_NODE_OUTLINE_STYLE: [/* width */ 10, /* color: */ 0xD5402B, /* alpha: */ 1],
+
     Z_ORDERS: {
-        NODE_OUTLINE: 15,
         NODE_TEXT: 10,
+        NODE_OUTLINE: 8,
         NODE_BACKGROUND: 7,
         CONNECTION: 2
     }
