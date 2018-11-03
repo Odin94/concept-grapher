@@ -62,7 +62,7 @@ export default class CanvasInputs {
             .moveTo(temp_connection.start_node.get_x(), temp_connection.start_node.get_y())
             .lineTo(target_node.get_x(), target_node.get_y());
 
-        const text = new zText('', constants.DEFAULT_FONT, constants.NODE_Z_ORDER);
+        const text = new zText('', constants.DEFAULT_FONT, constants.NODE_TEXT_Z_ORDER);
 
         const new_connection = new NodeConnection(temp_connection.start_node.id, target_node.id, line, text);
         this.graph_widget.add_connection(new_connection);

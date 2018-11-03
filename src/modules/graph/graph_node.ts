@@ -1,11 +1,11 @@
 import { TextStyleOptions, Point } from 'pixi.js';
-import { zText } from '../../classes_with_z_order';
+import { zText, zGraphics } from '../../classes_with_z_order';
 import constants from '../../constants';
 import { GraphState } from './graph_state';
 
 export class GraphNode {
 
-    public background_rect = new PIXI.Graphics();
+    public background_rect = new zGraphics(constants.NODE_BACKGROUND_Z_ORDER);
     constructor(public readonly id: number, public text: zText) {
         this.update_background();
     }
@@ -171,7 +171,7 @@ export class JSONableGraphNode {
     constructor(public id: number, public text: string, public x: number, public y: number, public style: TextStyleOptions) { }
 
     to_graph_node(): GraphNode {
-        const loaded_text = new zText(this.text, this.style, constants.NODE_Z_ORDER);
+        const loaded_text = new zText(this.text, this.style, constants.NODE_TEXT_Z_ORDER);
         loaded_text.position.set(this.x, this.y);
 
         return new GraphNode(this.id, loaded_text);

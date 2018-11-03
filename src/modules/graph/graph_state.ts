@@ -74,7 +74,7 @@ export class GraphState {
         this.write_to_graph_and_null_temporary_node();
 
         const new_id = this.get_max_id() + 1;
-        const new_text = new zText("TEST_REMOVE_THIS", constants.DEFAULT_FONT, constants.NODE_Z_ORDER);
+        const new_text = new zText("TEST_REMOVE_THIS", constants.DEFAULT_FONT, constants.NODE_TEXT_Z_ORDER);
         new_text.position.set(mouse_point.x, mouse_point.y);
         this.temporary_node = new GraphNode(new_id, new_text);
 
