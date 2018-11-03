@@ -29,7 +29,7 @@ export class GraphNode {
 
         this.background
             .clear()
-            .beginFill(constants.DEFAULT_NODE_BACKGROUND_COLOR)
+            .beginFill(constants.DEFAULT_NODE_BACKGROUND.color, constants.DEFAULT_NODE_BACKGROUND.alpha)
             .drawRoundedRect(
                 this.text.x - constants.NODE_BACKGROUND_MARGIN,
                 this.text.y - constants.NODE_BACKGROUND_MARGIN,
