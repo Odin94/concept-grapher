@@ -72,8 +72,8 @@ export default class MouseEventHandler {
         const graph_state = this.canvas_inputs.graph_widget.get_graph();
         const all_nodes: Array<GraphNode> = graph_state.temporary_node ? graph_state.nodes.concat(graph_state.temporary_node) : graph_state.nodes;
 
-        return all_nodes.find(({ text }) => {
-            return text.containsPoint(mouse_point);
+        return all_nodes.find(({ border_rect }) => {
+            return border_rect.containsPoint(mouse_point);
         }) || null;
     }
 }
