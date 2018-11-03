@@ -5,7 +5,7 @@ import { GraphState } from './graph_state';
 
 export class GraphNode {
 
-    public border_rect = new PIXI.Graphics();  // TODO: find a better name for this
+    public background_rect = new PIXI.Graphics();
     constructor(public readonly id: number, public text: zText) {
         this.update_background();
     }
@@ -13,7 +13,7 @@ export class GraphNode {
     update_background() {
         // Note: text.x and border_rect.x aren't directly comparable. One is world offset, the other camera offset
 
-        this.border_rect
+        this.background_rect
             .clear()
             .beginFill(constants.DEFAULT_NODE_BACKGROUND_COLOR)
             .drawRoundedRect(
@@ -26,12 +26,12 @@ export class GraphNode {
     }
 
     add_to_viewport(viewport: Viewport) {
-        viewport.addChild(this.border_rect);
+        viewport.addChild(this.background_rect);
         viewport.addChild(this.text);
     }
 
     remove_from_viewport(viewport: Viewport) {
-        viewport.removeChild(this.border_rect);
+        viewport.removeChild(this.background_rect);
         viewport.removeChild(this.text);
     }
 
