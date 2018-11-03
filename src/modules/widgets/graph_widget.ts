@@ -4,21 +4,40 @@ import CanvasInputs from "../io_handlers/canvas_inputs";
 import { ConceptGrapher } from "../concept_grapher";
 import { NodeConnection } from "../graph/node_connection";
 import { PointLike } from "pixi.js";
+import { ActionStack } from "../action_stack";
 
 export class GraphWidget {
     public selected_node: GraphNode | null;
     private canvas_input: CanvasInputs;
+    private undo_stack: ActionStack;
 
     constructor(private concept_grapher: ConceptGrapher, private graph_state: GraphState) {
         this.canvas_input = new CanvasInputs(concept_grapher.viewport, this);
+        this.undo_stack = new ActionStack([this.graph_state]);
     };
+
+    undo() {
+        this.clear_active_graph();
+        this.graph_state = this.undo_stack.undo(this.graph_state.viewport);
+    }
+
+    redo() {
+        if (this.undo_stack.is_at_top()) return;
+
+        this.clear_active_graph();
+        this.graph_state = this.undo_stack.redo(this.graph_state.viewport);
+    }
 
     add_graph_node(node: GraphNode) {
         this.graph_state.add_node(node);
+
+        this.undo_stack.push_state(this.graph_state);
     }
 
     add_connection(connection: NodeConnection) {
         this.graph_state.add_connection(connection);
+
+        this.undo_stack.push_state(this.graph_state);
     }
 
     create_temporary_node(mouse_point: PointLike) {
@@ -32,7 +51,9 @@ export class GraphWidget {
     }
 
     write_to_selected_node(new_text: string) {
-        if (this.selected_node) this.selected_node.set_text(new_text);
+        if (this.selected_node) {
+            this.selected_node.set_text(new_text);
+        }
     };
 
     select_node(node: GraphNode) {
@@ -47,6 +68,8 @@ export class GraphWidget {
     remove_selected_node() {
         if (this.selected_node) {
             this.graph_state.remove_node(this.selected_node.id);
+
+            this.undo_stack.push_state(this.graph_state);
         }
     }
 
@@ -54,6 +77,8 @@ export class GraphWidget {
         this.clear_active_graph();
         this.graph_state = new_graph;
         this.concept_grapher.viewport.moveCenter(0, 0);
+
+        this.undo_stack.push_state(this.graph_state);
     };
 
     clear_active_graph() {

@@ -19,6 +19,16 @@ export default class CanvasInputs {
         this.keyboard = new KeyboardEventHandler(this);
     }
 
+    undo() {
+        console.log("undo");
+        this.graph_widget.undo();
+    }
+
+    redo() {
+        console.log("redo");
+        this.graph_widget.redo();
+    }
+
     click_node(selected_node: GraphNode) {
         this.graph_widget.write_to_graph_and_null_temporary_node();
         this.graph_widget.select_node(selected_node);
