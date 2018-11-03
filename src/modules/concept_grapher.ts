@@ -27,8 +27,9 @@ export class ConceptGrapher {
             constants.DEFAULT_FONT,
             constants.NODE_TEXT_Z_ORDER,
         );
-        this.active_graph_widget.add_graph_node(new GraphNode(0, message));
         message.position.set(0 - message.width / 2, 0 - message.height / 2);
+        
+        this.active_graph_widget.add_graph_node(new GraphNode(0, message));
     };
 
     on_select_new_node(node: GraphNode) {
