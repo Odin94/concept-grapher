@@ -7,14 +7,22 @@ export class GraphNode {
 
     public border_rect = new PIXI.Graphics();  // TODO: find a better name for this
     constructor(public readonly id: number, public text: zText) {
-        this.border_rect.beginFill(constants.DEFAULT_NODE_BACKGROUND_COLOR);
-        this.border_rect.drawRoundedRect(
-            this.text.x - this.text.width / 2 - constants.NODE_BACKGROUND_MARGIN,
-            this.text.y - this.text.height / 2 - constants.NODE_BACKGROUND_MARGIN,
-            this.text.width + 2 * constants.NODE_BACKGROUND_MARGIN,
-            this.text.height + 2 * constants.NODE_BACKGROUND_MARGIN,
-            10
-        );
+        this.update_background();
+    }
+
+    update_background() {
+        // Note: text.x and border_rect.x aren't directly comparable. One is world offset, the other camera offset
+
+        this.border_rect
+            .clear()
+            .beginFill(constants.DEFAULT_NODE_BACKGROUND_COLOR)
+            .drawRoundedRect(
+                this.text.x - constants.NODE_BACKGROUND_MARGIN,
+                this.text.y - constants.NODE_BACKGROUND_MARGIN,
+                this.text.width + 2 * constants.NODE_BACKGROUND_MARGIN,
+                this.text.height + 2 * constants.NODE_BACKGROUND_MARGIN,
+                10
+            );
     }
 
     add_to_viewport(viewport: Viewport) {
@@ -27,13 +35,20 @@ export class GraphNode {
         viewport.removeChild(this.text);
     }
 
+    set_text(text: string) {
+        this.text.text = text;
+
+        this.update_background();
+    }
+
     get_x() {
         return this.text.x;
     }
 
     set_x(x: number) {
         this.text.x = x;
-        this.border_rect.x = this.text.x - this.text.width / 2 - constants.NODE_BACKGROUND_MARGIN;
+
+        this.update_background();
     }
 
     get_y() {
@@ -42,7 +57,8 @@ export class GraphNode {
 
     set_y(y: number) {
         this.text.y = y;
-        this.border_rect.y = this.text.y - this.text.height / 2 - constants.NODE_BACKGROUND_MARGIN;
+
+        this.update_background();
     }
 
     get_w() {

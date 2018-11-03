@@ -32,7 +32,7 @@ export class GraphWidget {
     }
 
     write_to_selected_node(new_text: string) {
-        if (this.selected_node) this.selected_node.text.text = new_text;
+        if (this.selected_node) this.selected_node.set_text(new_text);
     };
 
     select_node(node: GraphNode) {
