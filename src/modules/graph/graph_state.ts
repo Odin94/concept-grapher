@@ -5,8 +5,6 @@ import { NodeConnection, JSONableNodeConnection } from './node_connection';
 import { zViewport, zText } from '../../classes_with_z_order';
 
 export class GraphState {
-    temporary_node: GraphNode | null = null;
-
     constructor(public viewport: zViewport, public nodes: Array<GraphNode> = [], public connections: Array<NodeConnection> = []) {
         this.connections.forEach(connection => connection.update_connection_position(this));
         this.viewport.update_draw_order();
@@ -20,7 +18,6 @@ export class GraphState {
     }
 
     add_connection(connection: NodeConnection) {
-        this.write_to_graph_and_null_temporary_node();
         connection.update_connection_position(this);
         this.connections.push(connection);
         connection.add_to_viewport(this.viewport);
@@ -62,11 +59,6 @@ export class GraphState {
     }
 
     clear() {
-        if (this.temporary_node) {
-            this.temporary_node.remove_from_viewport(this.viewport);
-        }
-        this.temporary_node = null;
-
         for (const node of this.nodes) {
             node.remove_from_viewport(this.viewport);
         }
@@ -78,30 +70,15 @@ export class GraphState {
         this.connections = [];
     }
 
-    create_temporary_node(mouse_point: PointLike) {
-        this.write_to_graph_and_null_temporary_node();
-
+    create_node(mouse_point: PointLike): GraphNode {
         const new_id = this.get_max_id() + 1;
         const new_text = new zText("TEST_REMOVE_THIS", constants.DEFAULT_FONT, constants.Z_ORDERS.NODE_TEXT);
         new_text.position.set(mouse_point.x, mouse_point.y);
-        this.temporary_node = new GraphNode(new_id, new_text);
+        const new_node = new GraphNode(new_id, new_text);
 
-        this.temporary_node.add_to_viewport(this.viewport);
-    }
+        this.add_node(new_node);
 
-    destroy_temporary_node() {
-        if (this.temporary_node === null) return;
-
-        this.temporary_node.remove_from_viewport(this.viewport);
-        this.temporary_node = null;
-    }
-
-    write_to_graph_and_null_temporary_node() {
-        if (this.temporary_node === null) return;
-
-        this.viewport.removeChild(this.temporary_node.text);
-        this.add_node(this.temporary_node);
-        this.temporary_node = null;
+        return new_node;
     }
 
     to_jsonanble_graph_state(): JSONableGraphState {

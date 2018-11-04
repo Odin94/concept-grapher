@@ -30,7 +30,6 @@ export default class CanvasInputs {
     }
 
     click_node(selected_node: GraphNode) {
-        this.graph_widget.write_to_graph_and_null_temporary_node();
         this.graph_widget.select_node(selected_node);
     }
 
@@ -39,9 +38,7 @@ export default class CanvasInputs {
     }
 
     click_empty_space(world_position: PointLike) {
-        this.graph_widget.write_to_graph_and_null_temporary_node();
-        this.graph_widget.create_temporary_node(world_position);
-        this.graph_widget.select_node(this.graph_widget.get_graph().temporary_node as GraphNode);
+        this.graph_widget.create_node(world_position);
     }
 
     start_drawing_connection(selected_node: GraphNode) {
