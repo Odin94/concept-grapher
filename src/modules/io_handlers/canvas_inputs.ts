@@ -60,6 +60,8 @@ export default class CanvasInputs {
     }
 
     stop_dragging_node() {
+        this.graph_widget.on_stop_dragging_node();
+
         this.dragged_node = null;
     }
 

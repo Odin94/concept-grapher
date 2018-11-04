@@ -14,7 +14,7 @@ export class GraphWidget {
     constructor(private concept_grapher: ConceptGrapher, private graph_state: GraphState) {
         this.canvas_input = new CanvasInputs(concept_grapher.viewport, this);
         this.undo_stack = new ActionStack([this.graph_state]);
-    };
+    }
 
     undo() {
         this.clear_active_graph();
@@ -51,7 +51,7 @@ export class GraphWidget {
         if (this.selected_node) {
             this.selected_node.set_text(new_text);
         }
-    };
+    }
 
     select_node(node: GraphNode) {
         if (this.selected_node) this.selected_node.on_deselect();
@@ -60,7 +60,11 @@ export class GraphWidget {
         this.selected_node = node;
 
         this.concept_grapher.on_select_new_node(node);
-    };
+    }
+
+    on_stop_dragging_node() {
+        this.undo_stack.push_state(this.graph_state);
+    }
 
     remove_selected_node() {
         if (this.selected_node) {
@@ -76,11 +80,11 @@ export class GraphWidget {
         this.concept_grapher.viewport.moveCenter(0, 0);
 
         this.undo_stack.push_state(this.graph_state);
-    };
+    }
 
     clear_active_graph() {
         this.graph_state.clear();
-    };
+    }
 
     get_graph(): GraphState {
         return this.graph_state;
