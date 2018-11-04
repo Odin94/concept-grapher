@@ -10,6 +10,14 @@ export class GraphState {
         this.viewport.update_draw_order();
     }
 
+    has_node_with_id(nodeId: number): boolean {
+        return this.nodes.some(node => node.id === nodeId);
+    }
+
+    get_node_by_id(nodeId: number): GraphNode | undefined {
+        return this.nodes.find(node => node.id === nodeId);
+    }
+
     add_node(node: GraphNode) {
         this.nodes.push(node);
         node.add_to_viewport(this.viewport);

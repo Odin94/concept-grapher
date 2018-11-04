@@ -19,6 +19,8 @@ export class GraphWidget {
     undo() {
         this.clear_active_graph();
         this.graph_state = this.undo_stack.undo(this.graph_state.viewport);
+
+        this.preserve_node_selection()
     }
 
     redo() {
@@ -26,6 +28,20 @@ export class GraphWidget {
 
         this.clear_active_graph();
         this.graph_state = this.undo_stack.redo(this.graph_state.viewport);
+
+        this.preserve_node_selection();
+    }
+
+    preserve_node_selection() {
+        if (this.selected_node) {
+            const selected_node = this.graph_state.get_node_by_id(this.selected_node.id) || null;
+            if (selected_node) {
+                this.select_node(selected_node);
+            }
+            else {
+                this.concept_grapher.on_unselect_node();
+            }
+        }
     }
 
     add_graph_node(node: GraphNode) {
