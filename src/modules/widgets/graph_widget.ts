@@ -43,11 +43,15 @@ export class GraphWidget {
     create_temporary_node(mouse_point: PointLike) {
         this.graph_state.create_temporary_node(mouse_point);
 
-        if (this.graph_state.temporary_node) this.select_node(this.graph_state.temporary_node);
+        if (this.graph_state.temporary_node) {
+            this.select_node(this.graph_state.temporary_node);
+        }
     }
 
     write_to_graph_and_null_temporary_node() {
         this.graph_state.write_to_graph_and_null_temporary_node();
+
+        this.undo_stack.push_state(this.graph_state);
     }
 
     write_to_selected_node(new_text: string) {

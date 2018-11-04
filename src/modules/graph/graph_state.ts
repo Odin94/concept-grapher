@@ -62,6 +62,11 @@ export class GraphState {
     }
 
     clear() {
+        if (this.temporary_node) {
+            this.temporary_node.remove_from_viewport(this.viewport);
+        }
+        this.temporary_node = null;
+
         for (const node of this.nodes) {
             node.remove_from_viewport(this.viewport);
         }
