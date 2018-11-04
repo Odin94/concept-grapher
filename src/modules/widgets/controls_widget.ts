@@ -46,6 +46,10 @@ export default class ControlsWidget {
         this.input.focus();
     };
 
+    on_unselect_node() {
+        this.input.value = "";
+    }
+
     save_graph_as(save_path: string) {
         this.concept_grapher.save_active_graph(save_path);
     };

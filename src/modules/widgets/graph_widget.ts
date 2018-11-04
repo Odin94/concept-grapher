@@ -69,6 +69,7 @@ export class GraphWidget {
     remove_selected_node() {
         if (this.selected_node) {
             this.graph_state.remove_node(this.selected_node.id);
+            this.concept_grapher.on_unselect_node();
 
             this.undo_stack.push_state(this.graph_state);
         }

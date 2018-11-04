@@ -30,20 +30,24 @@ export class ConceptGrapher {
         message.position.set(0 - message.width / 2, 0 - message.height / 2);
 
         this.active_graph_widget.add_graph_node(new GraphNode(0, message));
-    };
+    }
 
     on_select_new_node(node: GraphNode) {
         this.viewport.update_draw_order();
         this.controls_widget.on_select_new_node(node.text.text);
-    };
+    }
+
+    on_unselect_node() {
+        this.controls_widget.on_unselect_node();
+    }
 
     write_to_selected_node(text: string) {
         this.active_graph_widget.write_to_selected_node(text);
-    };
+    }
 
     save_active_graph(save_path: string = join(constants.DEFAULT_GRAPH_STORAGE_PATH, constants.DEFAULT_STORED_GRAPH_NAME)) {
         this.state_persister.store_graph(this.active_graph_widget.get_graph(), save_path);
-    };
+    }
 
     load_graph(load_path: string) {
         const new_graph = this.state_persister.load_graph(load_path, this.viewport);
@@ -52,5 +56,5 @@ export class ConceptGrapher {
             this.active_graph_widget.clear_active_graph();
             this.active_graph_widget.set_new_graph(new_graph);
         }
-    };
-};
+    }
+}
