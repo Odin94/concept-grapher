@@ -28,6 +28,7 @@ export default class ControlsWidget {
         this.load_button = document.getElementById("load-button") as HTMLButtonElement;
         this.load_button.onclick = (event: Event) => {
             try {
+                // @ts-ignore
                 const load_path = remote.dialog.showOpenDialog({ defaultPath: constants.DEFAULT_GRAPH_STORAGE_PATH, filters: [{ name: 'JSON', extensions: ['json'] }], properties: ["openFile"] })[0];
                 if (load_path) {
                     this.load_graph(load_path);
