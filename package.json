@@ -24,7 +24,7 @@
     "@types/pixi.js": "^4.8.7",
     "electron": "^4.2.4",
     "mousetrap": "^1.6.3",
-    "node-sass": "^4.12.0",
+    "node-sass": "^8.0.0",
     "pixi-viewport": "^3.23.2",
     "pixi.js": "^4.8.8",
     "tslint": "^5.17.0",
